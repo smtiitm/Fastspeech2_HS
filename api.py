@@ -22,8 +22,6 @@ lang = 'hindi'
 gender = 'female'
 
 url = "http://localhost:4005/tts"
-
-# url = "http://projects.respark.iitm.ac.in:4000/tts"
 # url = 'http://projects.respark.iitm.ac.in:8009/tts' # proxy
 
 payload = json.dumps({
