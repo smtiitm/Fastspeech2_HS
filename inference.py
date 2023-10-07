@@ -11,7 +11,7 @@ from meldataset import MAX_WAV_VALUE
 from env import AttrDict
 import json
 import yaml
-from text_preprocess_for_inference import TTSDurAlignPreprocessor, CharTextPreprocessor
+from text_preprocess_for_inference import TTSDurAlignPreprocessor, CharTextPreprocessor, TTSPreprocessor
 
 SAMPLING_RATE = 22050
 
@@ -105,6 +105,8 @@ if __name__ == "__main__":
     
     if args.language == "urdu" or args.language == "punjabi":
             preprocessor = CharTextPreprocessor()
+    elif args.language == "english":
+            preprocessor = TTSPreprocessor()
     else:
             preprocessor = TTSDurAlignPreprocessor()
 

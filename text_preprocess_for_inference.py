@@ -1,6 +1,7 @@
 '''
 TTS Preprocessing
 Developed by Arun Kumar A(CS20S013) - November 2022
+Code Changes by Utkarsh - 2023
 '''
 import os
 import re
@@ -338,10 +339,8 @@ class Phonifier:
                 with open(out_dict_file, "w") as f:
                     f.write(data_str)
             else:
-                # unified_parser_cmd = "phonify_wrapper.sh"
-                
-                # subprocess.run(["bash", unified_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "/speech/arun/tts/tts_api/text2phone/"])
-                out_file_dict = os.path.abspath("tmp/out_dict_" + timestamp)
+          
+                out_dict_file = os.path.abspath("tmp/out_dict_" + timestamp)
                 from get_phone_mapped_python import TextReplacer
                 
                 from indic_unified_parser.uparser import wordparse
@@ -439,10 +438,24 @@ class Phonifier:
                 with open(out_dict_file, "w") as f:
                     f.write(data_str)
             else:
-                unified_parser_cmd = "phonify_wrapper.sh"
-                subprocess.run(["bash", unified_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "/speech/arun/tts/tts_api/text2phone/"])
-            # unified_parser_cmd = "phonify_wrapper.sh"
-            # subprocess.run(["bash", unified_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "/var/www/html/IITM_TTS/E2E_TTS_FS2/text_proc/text2phone/"])
+                out_dict_file = os.path.abspath("tmp/out_dict_" + timestamp)
+                from get_phone_mapped_python import TextReplacer
+                
+                from indic_unified_parser.uparser import wordparse
+                
+                text_replacer=TextReplacer()
+            
+                parsed_output_list = []
+                for word in non_dict_words:
+                    parsed_word = wordparse(word, 0, 0, 1)
+                    parsed_output_list.append(parsed_word)
+                replaced_output_list = [text_replacer.apply_replacements(parsed_word) for parsed_word in parsed_output_list]
+                with open(out_dict_file, 'w', encoding='utf-8') as file:
+                    for original_word, formatted_word in zip(non_dict_words, replaced_output_list):
+                        line = f"{original_word}\t{formatted_word}\n"
+                        file.write(line)
+                        print(line, end='') 
+        
             try:
                 df = pd.read_csv(out_dict_file, delimiter="\t", header=None, dtype=str)
                 new_dict = df.dropna().set_index(0).to_dict('dict')[1]
@@ -821,7 +834,7 @@ class TTSPreprocessor:
         self.text_phrasefier = text_phrasefier
 
     def preprocess(self, text, language, gender):
-        text = text.strip()
+        #text = text.strip()
         text = self.text_cleaner.clean(text)
         # text = self.text_normalizer.insert_space(text)
         text = self.text_normalizer.num2text(text, language)
