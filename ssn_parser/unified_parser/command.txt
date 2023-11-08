@@ -1,0 +1,1 @@
+valgrind ./unified-parser राज्यपाल temp_out.txt 1 0 0 0

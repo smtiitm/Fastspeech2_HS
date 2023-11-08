@@ -1,0 +1,42 @@
+#!/bin/tcsh -f
+if ($# != 2) then
+	echo "argument 1 = tagged_text"
+	echo "argument 2 = pos list"
+	exit(-1)
+endif
+
+set lines_text = `cat $1|wc -l`
+set k = 1
+
+while ($k <= $lines_text)
+	set plain_line = `cat $1|head -$k|tail -1`
+	echo $plain_line > plain_line
+
+	set num_words = `cat plain_line|head -$k|tail -1|wc -w`
+	set i = 1
+	while ($i <= $num_words)
+		set word = `cat plain_line|head -$k|tail -1|cut -d " " -f$i`
+		set tag = `cat plain_line|head -$k|tail -1|cut -d " " -f$i|cut -d "/" -f2`
+		set chk_tag = `grep -w $tag $2|wc -l`
+
+		if ($chk_tag != 0) then
+			echo $word >> break_points
+		endif
+		@ i++
+	end
+
+	set breaks = `cat break_points |wc -l`
+
+	set j = 1
+	while ($j <= $breaks)
+		set old = `cat break_points|head -$j|tail -1`
+
+		sed -i "s@$old@$old ,/RD_PUNC @" plain_line
+		@ j++
+	end
+	sed -i 's/  / /g' plain_line
+	./scripts/detagging plain_line
+	rm break_points
+	@ k++
+end
+

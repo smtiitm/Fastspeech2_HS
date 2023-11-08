@@ -1,0 +1,6 @@
+(set! wordstruct '( (( "h" "i" "q" ) 0) (( "d" "ii" ) 0) ))
+(set! wordstruct '( (( "aa" "p" ) 0) ))
+(set! wordstruct '( (( "k" "ei" ) 0) (( "s" "ee" ) 0) ))
+(set! wordstruct '( (( "h" "ei" "q" ) 0) ))
+(set! wordstruct '( (( "aa" "p" ) 0) ))
+(set! wordstruct '( (( "h" "ei" "q" ) 0) ))

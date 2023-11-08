@@ -1,0 +1,45 @@
+#!/bin/tcsh -f
+
+if ($# != 3) then
+	echo "arg1 - transliterated word"
+	echo "arg2 - map table"
+	echo "arg3 - phone list"
+	exit(-1)
+endif
+
+perl scripts/ortho_to_phonetic1.pl $1 $3 phone1
+rm $1
+set start = 1
+set count = `cat phone1 |wc -l`
+
+while ($start <= $count)
+	set phn1 = `cat phone1 |head -$start |tail -1`
+	if ($phn1 == e || $phn1 == ee) then
+		set st = `echo "$start + 1" |bc` 
+		set phn2 = `cat phone1 |head -$st |tail -1`
+		set flg = `grep -w "$phn1 $phn2" $2 |wc -l`
+		if ($flg != 0) then
+			set st1 = `echo "$start + 2" |bc`
+			set phn3 = `cat phone1 |head -$st1 |tail -1`
+			if ($phn2 == lx && $phn3 != a) then
+				set phn = $phn1
+			else
+				set phn = `grep -w "$phn1 $phn2" $2 |cut -d " " -f3`
+				if ($phn == au) then
+					@ start++
+				endif
+				@ start++
+			endif
+		else
+			set phn = $phn1
+		endif
+	else 
+		set phn = $phn1
+	endif
+	echo -n $phn >> lists/out_word
+#	if ($phn == au) then
+#		@ start++
+#	endif
+	@ start++
+end
+	

@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+# hts_engine (synthesizing waveforms using hts_engine)
+$ENGINE    = '@ENGINE@';
+$prjdir = '@PWD@';
+$dir = "${prjdir}/wav";
+$voice = "${prjdir}/voices";
+
+   # hts_engine command line & options
+   # model file & trees
+	$hts_engine = "$ENGINE -m ${voice}/*.htsvoice ";
+	$hts_engine .= "-b " . ( $pf_mcp - 1.0 ) . " ";
+
+	 # generate waveform using hts_engine
+		 open( SCP, "lists/gen.scp" ) || die "Cannot open $!";
+		 while (<SCP>) {
+		    $lab = $_;
+		    chomp($lab);
+		    $base = `basename $lab .lab`;
+		    chomp($base);
+
+		    print "Synthesizing a speech waveform from $lab using hts_engine...";
+		    shell("$hts_engine -or ${dir}/${base}.raw -ow ${dir}/${base}.wav -ot ${dir}/${base}.trace $lab");
+		    print "done.\n";
+		 }
+		 close(SCP);
+
+sub shell($) {
+   my ($command) = @_;
+   my ($exit);
+
+   $exit = system($command);
+
+   if ( $exit / 256 != 0 ) {
+      die "Error in $command\n";
+   }
+}

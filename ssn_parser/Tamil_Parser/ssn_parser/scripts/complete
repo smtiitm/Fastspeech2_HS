@@ -1,0 +1,35 @@
+#!/bin/tcsh -f
+
+if ($# != 2) then
+	echo "arg1 - text to be synthesised"
+	echo "arg2 - system"
+	exit(-1)
+endif
+rm -rf etc/text prompt-utt/* lab/* wav/* lists/gen.scp temp* lists/word lists/trans_word lists/out_word 
+rm wordpronunciation
+
+
+echo "$1" > temp2
+perl scripts/normalize_all.pl temp2 temp3
+./scripts/phrasing_pos_2stage temp3 lists/pb_pos_list_12hrs lists/syl_list
+cp temp_1 temp2
+
+cp festvox/ssn_hts_demo_clunits_tam.scm festvox/ssn_hts_demo_clunits.scm
+cp festvox/ssn_hts_demo_lexicon_tamil.scm festvox/ssn_hts_demo_lexicon.scm
+cp festvox/ssn_hts_demo_tokenizer_tamil.scm festvox/ssn_hts_demo_tokenizer.scm
+
+
+set sentence = `cat temp2`
+echo "(1 "'"'$sentence.'"'")" > etc/text
+
+
+$FESTDIR/bin/festival -b festvox/build_clunits.scm '(build_prompts "etc/text")'
+cd scripts
+make
+cd ..
+ls `pwd`/lab/1.lab > lists/gen.scp
+chmod +x scripts/hts_engine.pl
+./scripts/hts_engine.pl scripts/Config.pm
+play wav/1.wav
+
+rm phn phone syl1 syl2 syl3 syllables temp2 temp3 

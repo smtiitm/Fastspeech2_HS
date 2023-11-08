@@ -1,0 +1,27 @@
+#!/bin/tcsh -f
+rm -f text_detagged
+if ($# != 1) then
+echo "argument 1 = tagged_text"
+exit(-1)
+endif
+#set text_line = `cat $2|wc -l`
+sed -i 's/^[ \t]*//' $1
+set pos_line = `cat $1|wc -l`
+set i = 1
+while ($i <= $pos_line)
+#echo $i
+set word_count = `cat $1|head -$i|tail -1|wc -w`
+#echo "wc -"$word_count
+set j = 1
+while ($j <= $word_count)
+set word = `cat $1|head -$i|tail -1|cut -d " " -f$j|cut -d "/" -f1`
+set tag = `cat $1|head -$i|tail -1|cut -d " " -f$j|cut -d "/" -f2`
+#echo $tag 
+
+echo -n " "$word >> text_detagged
+		
+@ j++
+end	
+echo >> text_detagged
+@ i++
+end

@@ -1,0 +1,185 @@
+0	$	#	#	#	#	ऀ	#	#	#
+1	mq	#	#	#	#	ँ	ঁ	ઁ	ଁ
+2	q	ം	ஂ	ం	ಂ	ं	ং	ં	ଂ
+3	hq	ഃ	ஃ	ః	ಃ	ः	ঃ	ઃ	ଃ
+4	$	#	#	#	#	ऄ	#	#	#
+5	a	അ	அ	అ	ಅ	अ	অ	અ	ଅ
+6	aa	ആ	ஆ	ఆ	ಆ	आ	আ	આ	ଆ
+7	i	ഇ	இ	ఇ	ಇ	इ	ই	ઇ	ଇ
+8	ii	ഈ	ஈ	ఈ	ಈ	ई	ঈ	ઈ	ଈ
+9	u	ഉ	உ	ఉ	ಉ	उ	উ	ઉ	ଉ
+10	uu	ഊ	ஊ	ఊ	ಊ	ऊ	ঊ	ઊ	ଊ
+11	rq	ഋ	#	ఋ	ಋ	ऋ	ঋ	ઋ	ଋ
+12	$	#	#	#	#	ऌ	ঌ	ઌ	ଌ
+13	ae	#	#	#	#	ऍ	#	ઍ	#
+14	e	എ	எ	ఎ	ಎ	ऎ	#	#	#
+15	ee	ഏ	ஏ	ఏ	ಏ	ए	এ	એ	ଏ
+16	ei	ഐ	ஐ	ఐ	ಐ	ऐ	ঐ	ઐ	ଐ
+17	ax	#	#	#	#	ऑ	#	ઑ	#
+18	o	ഒ	ஒ	ఒ	ಒ	ऒ	#	#	#
+19	oo	ഓ	ஓ	ఓ	ಓ	ओ	ও	ઓ	ଓ
+20	ou	ഔ	ஔ	ఔ	ಔ	औ	ঔ	ઔ	ଔ
+21	k	ക	க	క	ಕ	क	ক	ક	କ
+22	kh	ഖ	#	ఖ	ಖ	ख	খ	ખ	ଖ
+23	g	ഗ	#	గ	ಗ	ग	গ	ગ	ଗ
+24	gh	ഘ	#	ఘ	ಘ	घ	ঘ	ઘ	ଘ
+25	ng	ങ	ங	ఙ	ಙ	ङ	ঙ	ઙ	ଙ
+26	c	ച	ச	చ	ಚ	च	চ	ચ	ଚ
+27	ch	ഛ	#	ఛ	ಛ	छ	ছ	છ	ଛ
+28	j	ജ	ஜ	జ	ಜ	ज	জ	જ	ଜ
+29	jh	ഝ	#	ఝ	ಝ	झ	ঝ	ઝ	ଝ
+30	nj	ഞ	ஞ	ఞ	ಞ	ञ	ঞ	ઞ	ଞ
+31	tx	ട	ட	ట	ಟ	ट	ট	ટ	ଟ
+32	txh	ഠ	#	ఠ	ಠ	ठ	ঠ	ઠ	ଠ
+33	dx	ഡ	#	డ	ಡ	ड	ড	ડ	ଡ
+34	dxh	ഢ	#	ఢ	ಢ	ढ	ঢ	ઢ	ଢ
+35	nx	ണ	ண	ణ	ಣ	ण	ণ	ણ	ଣ
+36	t	ത	த	త	ತ	त	ত	ત	ତ
+37	th	ഥ	#	థ	ಥ	थ	থ	થ	ଥ
+38	d	ദ	#	ద	ದ	द	দ	દ	ଦ
+39	dh	ധ	#	ధ	ಧ	ध	ধ	ધ	ଧ
+40	n	ന	ந	న	ನ	न	ন	ન	ନ
+41	nd	ഩ	ன	#	#	ऩ	#	#	#
+42	p	പ	ப	ప	ಪ	प	প	પ	ପ
+43	ph	ഫ	#	ఫ	ಫ	फ	ফ	ફ	ଫ
+44	b	ബ	#	బ	ಬ	ब	ব	બ	ବ
+45	bh	ഭ	#	భ	ಭ	भ	ভ	ભ	ଭ
+46	m	മ	ம	మ	ಮ	म	ম	મ	ମ
+47	y	യ	ய	య	ಯ	य	য	ય	ୟ
+48	r	ര	ர	ర	ರ	र	র	ર	ର
+49	rx	റ	ற	#	#	ऱ	#	#	#
+50	l	ല	ல	ల	ಲ	ल	ল	લ	ଲ
+51	lx	ള	ள	ళ	ಳ	ळ	#	ળ	ଳ
+52	zh	ഴ	ழ	#	#	ऴ	#	#	#
+53	w	വ	வ	వ	ವ	व	#	વ	ଵ
+54	sh	ശ	ஶ	శ	ಶ	श	শ	શ	ଶ
+55	sx	ഷ	ஷ	ష	ಷ	ष	ষ	ષ	ଷ
+56	s	സ	ஸ	స	ಸ	स	স	સ	ସ
+57	h	ഹ	ஹ	హ	ಹ	ह	হ	હ	ହ
+58	$	#	#	#	#	ऺ	#	#	#
+59	$	#	#	#	#	ऻ	#	#	#
+60	nk	#	#	#	#	़	়	઼	଼
+61	ag	#	#	#	#	ऽ	ঽ	ઽ	ଽ
+62	aav	ാ	ா	ా	ಾ	ा	া	ા	ା
+63	iv	ി	ி	ి	ಿ	ि	ি	િ	ି
+64	iiv	ീ	ீ	ీ	ೀ	ी	ী	ી	ୀ
+65	uv	ു	ு	ు	ು	ु	ু	ુ	ୁ
+66	uuv	ൂ	ூ	ూ	ೂ	ू	ূ	ૂ	ୂ
+67	rqv	ൃ	#	ృ	ೃ	ृ	ৃ	ૃ	ୃ
+68	rqwv	ൄ	#	ౄ	ೄೄ	ॄ	ৄ	ૄ	#
+69	aev	#	#	#	#	ॅ	#	#	#
+70	ev	െ	ெ	ె	ೆೆ	ॆ	#	#	ୄ
+71	eev	േ	ே	ే	ೇ	े	ে	ે	େ
+72	eiv	ൈ	ை	ై	ೇೈ	ै	ৈ	ૈ	ୈ
+73	axv	#	#	#	#	ॉ	#	ૉ	#
+74	ov	ൊ	ொ	ొ	ೊ	ॊ	#	#	#
+75	oov	ോ	ோ	ో	ೋ	ो	ো	ો	ୋ
+76	ouv	ൌ	ௌ	ౌ	ೌ	ौ	ৌ	ૌ	ୌ
+77	eu	്	்	్	್	्	্	્	୍
+78	tv	#	#	#	#	ॎ	ৎ	#	#
+79	$	#	#	#	#	ॏ	#	#	#
+80	$	#	#	#	#	ॐ	#	ૐ	#
+81	$	#	#	#	#	॓	#	#	#
+82	$	#	#	#	#	॔	#	#	#
+83	$	#	#	#	#	#	#	#	#
+84	$	#	#	#	#	#	#	#	#
+85	$	#	#	#	#	ॕ	#	#	#
+86	$	#	#	#	#	ॖ	#	#	ୖ
+87	auv	ൗ	#	#	#	ॗ	ৗ	#	ୗ
+88	kq	#	#	#	#	क़	#	#	#
+89	khq	#	#	#	#	ख़	#	#	#
+90	gq	#	#	#	#	ग़	#	#	#
+91	z	#	#	#	#	ज़	#	#	#
+92	dxq	#	#	#	#	ड़	ড়	#	ଡ଼
+93	dxhq	#	#	#	#	ढ़	ঢ়	#	ଢ଼
+94	f	#	#	#	#	फ़	#	#	#
+95	y	#	#	#	#	य़	য়	#	ୟ
+96	rqw	#	#	#	#	ॠ	ৠ	ૠ	ୠ
+97	$	#	#	#	#	ॡ	ৡ	ૡ	ୡ
+98	$	#	#	#	#	ॢ	ৢ	ૢ	#
+99	$	#	#	#	#	ॣ	ৣ	ૣ	ୢ
+100	$	#	#	#	#	।	#	#	#
+101	$	#	#	#	#	॥	#	#	ୣ
+102	$	#	#	#	#	०	০	૦	୦
+103	$	#	#	#	#	१	১	૧	୧
+104	$	#	#	#	#	२	২	૨	୨
+105	$	#	#	#	#	३	৩	૩	୩
+106	$	#	#	#	#	४	৪	૪	୪
+107	$	#	#	#	#	५	৫	૫	୫
+108	$	#	#	#	#	६	৬	૬	୬
+109	$	#	#	#	#	७	৭	૭	୭
+110	$	#	#	#	#	८	৮	૮	୮
+111	$	#	#	#	#	९	৯	૯	୯
+112	rv	#	#	#	#	॰	ৰ	૰	୰
+113	wv	#	#	#	#	ॱ	ৱ	૱	ୱ
+114	$	#	#	#	#	ॲ	৲	#	୲
+115	$	#	#	#	#	ॳ	৳	#	୳
+116	$	#	#	#	#	ॴ	৴	#	୴
+117	$	#	#	#	#	ॵ	৵	#	୵
+118	$	#	#	#	#	ॶ	৶	#	୶
+119	$	#	#	#	#	ॷ	৷	#	୷
+120	$	#	#	#	#	ॸ	৸	#	#
+121	$	#	#	#	#	ॹ	৹	#	#
+122	nwv	ൺ	#	#	#	ॺ	৺	#	#
+123	nnv	ൻ	#	#	#	ॻ	৻	#	#
+124	rwv	ർ	#	#	#	ॼ	#	#	#
+125	lwv	ൽ	#	#	#	ॽ	#	#	#
+126	lnv	ൾ	#	#	#	ॾ	#	#	#
+127	$	#	#	#	#	ॿ	#	#	#
+
+/* ----------------------------------------------------------------- */
+/*  CODE FOR PARSING INDIAN LANGUAGES				               */
+/*           developed by Indian Language Text-to-Speech Consortium  */
+/* ----------------------------------------------------------------- */
+/*                                                                   */
+/*  Copyright (c) 2015  Indian Language Text-to-Speech Consortium    */
+/*                      Headed by Prof Hema A Murthy, IIT Madras     */
+/*                      Department of Computer Science & Engineering */
+/*                      hema@cse.iitm.ac.in                          */
+/*                                                                   */
+/*                                 				               */
+/* All rights reserved.                                              */
+/*                                                                   */
+/* Redistribution and use in source and binary forms, with or        */
+/* without modification, are permitted provided that the following   */
+/* conditions are met:                                               */
+/*                                                                   */
+/* - It can be used for research purpose but for commercial use,     */
+/*   prior permission is needed.                                     */
+/* - Redistributions of source code must retain the above copyright  */
+/*   notice, this list of conditions and the following disclaimer.   */
+/* - Redistributions in binary form must reproduce the above         */
+/*   copyright notice, this list of conditions and the following     */
+/*   disclaimer in the documentation and/or other materials provided */
+/*   with the distribution.                                          */
+/* - Neither the name of the Indian Language TTS Consortium nor      */
+/*   the names of its contributors may be used to endorse or promote */
+/*   products derived from this software without specific prior      */
+/*   written permission.					               */
+/*                                                                   */
+/* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            */
+/* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       */
+/* INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          */
+/* MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          */
+/* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS */
+/* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          */
+/* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   */
+/* TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     */
+/* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON */
+/* ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   */
+/* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    */
+/* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           */
+/* POSSIBILITY OF SUCH DAMAGE.                                       */
+/* ----------------------------------------------------------------- */
+
+/* ########################### Author Info ######################### */
+/*		Name:	Arun Baby
+/*  		Orgn: IIT Madras
+/*    	Email: arunbaby0@gmail.com
+/*		Date:	01-01-2016
+/*		Desc:	common mapping for indian languages
+/* ########################### Author Info END ##################### */
+
+/* ########################### Test Code ########################### */
+/* 		Dependencies : none
+/* ########################### Test Code END ####################### */
