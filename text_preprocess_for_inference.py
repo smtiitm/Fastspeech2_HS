@@ -352,9 +352,9 @@ class Phonifier:
             if(language == 'tamil'):
                 current_directory = os.getcwd()
                 #tamil_parser_cmd = "tamil_parser.sh"
-                tamil_parser_cmd = f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser/tamil_parser.sh"
+                tamil_parser_cmd = f"{current_directory}/ssn_parser_new/tamil_parser.py"
                 #subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser"])
-                subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser"])
+                subprocess.run(["python", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser_new"])
             elif(language == 'english'):
                 phn_out_dict = {}
                 for i in range(0,len(non_dict_words)):
@@ -454,9 +454,9 @@ class Phonifier:
             if(language == 'tamil'):
                 current_directory = os.getcwd()
                 #tamil_parser_cmd = "tamil_parser.sh"
-                tamil_parser_cmd = f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser/tamil_parser.sh"
+                tamil_parser_cmd = f"{current_directory}/ssn_parser_new/tamil_parser.py"
                 #subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser"])
-                subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser"])
+                subprocess.run(["python", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser_new"])
                 
             elif(language == 'english'):
                 phn_out_dict = {}
