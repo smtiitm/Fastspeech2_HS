@@ -97,6 +97,8 @@ if __name__ == "__main__":
     parser.add_argument("--output_file", type=str, default="", help="Output WAV file path")
 
     args = parser.parse_args()
+
+    phone_dictionary = {}
     # Set the device
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -111,7 +113,7 @@ if __name__ == "__main__":
             preprocessor = TTSDurAlignPreprocessor()
 
     # Preprocess the sample text
-    preprocessed_text, phrases = preprocessor.preprocess(args.sample_text, args.language, args.gender)
+    preprocessed_text, phrases = preprocessor.preprocess(args.sample_text, args.language, args.gender, phone_dictionary)
     preprocessed_text = " ".join(preprocessed_text)
 
     

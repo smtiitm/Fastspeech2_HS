@@ -90,21 +90,21 @@ class Phonifier:
             dict_location = "phone_dict"
         self.dict_location = dict_location
 
-        self.phone_dictionary = {}
-        # load dictionary for all the available languages
-        for dict_file in os.listdir(dict_location):
-            try:
-                if dict_file.startswith("."):
-                    # ignore hidden files
-                    continue
-                language = dict_file
-                dict_file_path = os.path.join(dict_location, dict_file)
-                df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
-                self.phone_dictionary[language] = df.set_index(0).to_dict('dict')[1]
-            except Exception as e:
-                print(traceback.format_exc())
+        # self.phone_dictionary = {}
+        # # load dictionary for all the available languages
+        # for dict_file in os.listdir(dict_location):
+        #     try:
+        #         if dict_file.startswith("."):
+        #             # ignore hidden files
+        #             continue
+        #         language = dict_file
+        #         dict_file_path = os.path.join(dict_location, dict_file)
+        #         df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
+        #         self.phone_dictionary[language] = df.set_index(0).to_dict('dict')[1]
+        #     except Exception as e:
+        #         print(traceback.format_exc())
 
-        print("Phone dictionary loaded for the following languages:", list(self.phone_dictionary.keys()))
+        # print("Phone dictionary loaded for the following languages:", list(self.phone_dictionary.keys()))
 
         self.g2p = G2p()
         print('Loading G2P model... Done!')
@@ -257,6 +257,29 @@ class Phonifier:
         with open(oov_map_json_file, 'r') as oov_file:
             self.oov_map = json.load(oov_file)
 
+
+
+    def load_lang_dict(self, language, phone_dictionary):            
+        # load dictionary for requested language
+        try:
+
+            dict_file = language
+            print("language", language)
+            dict_file_path = os.path.join(self.dict_location, dict_file)
+            print("dict_file_path", dict_file_path)
+            df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
+            phone_dictionary[language] = df.set_index(0).to_dict('dict')[1]
+
+            dict_file = 'english'
+            dict_file_path = os.path.join(self.dict_location, dict_file)
+            df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
+            phone_dictionary['english'] = df.set_index(0).to_dict('dict')[1]
+            
+        except Exception as e:
+            print(traceback.format_exc())
+
+        return phone_dictionary
+
     def __is_float(self, word):
         parts = word.split('.')
         if len(parts) != 2:
@@ -300,17 +323,17 @@ class Phonifier:
             return True
         return False
 
-    def __phonify(self, text, language, gender):
+    def __phonify(self, text, language, gender, phone_dictionary):
         # text is expected to be a list of strings
         words = set((" ".join(text)).split(" "))
         #print(f"words test: {words}")
         non_dict_words = []
        
         
-        if language in self.phone_dictionary:
+        if language in phone_dictionary:
             for word in words:
                 # print(f"word: {word}")
-                if word not in self.phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
+                if word not in phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
                     non_dict_words.append(word)
                     #print('INSIDE IF CONDITION OF ADDING WORDS')
         else:
@@ -329,9 +352,9 @@ class Phonifier:
             if(language == 'tamil'):
                 current_directory = os.getcwd()
                 #tamil_parser_cmd = "tamil_parser.sh"
-                tamil_parser_cmd = f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser/tamil_parser.sh"
+                tamil_parser_cmd = f"{current_directory}/ssn_parser_new/tamil_parser.py"
                 #subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser"])
-                subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser"])
+                subprocess.run(["python", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser_new"])
             elif(language == 'english'):
                 phn_out_dict = {}
                 for i in range(0,len(non_dict_words)):
@@ -370,10 +393,10 @@ class Phonifier:
                 #print('DATAFRAME OUTPUT FILE', df.head())
                 new_dict = df.dropna().set_index(0).to_dict('dict')[1]
                 #print("new dict",new_dict)
-                if language not in self.phone_dictionary:
-                    self.phone_dictionary[language] = new_dict
+                if language not in phone_dictionary:
+                    phone_dictionary[language] = new_dict
                 else:
-                    self.phone_dictionary[language].update(new_dict)
+                    phone_dictionary[language].update(new_dict)
                 # run a non-blocking child process to update the dictionary file
                 #print("phone_dict", self.phone_dictionary)
                 p = Process(target=add_to_dictionary, args=(new_dict, os.path.join(self.dict_location, language)))
@@ -388,13 +411,13 @@ class Phonifier:
             phrase_phonified = []
             for word in phrase.split(" "):
                 if self.__is_english_word(word):
-                    if word in self.phone_dictionary["english"]:
-                        phrase_phonified.append(str(self.phone_dictionary["english"][word]))
+                    if word in phone_dictionary["english"]:
+                        phrase_phonified.append(str(phone_dictionary["english"][word]))
                     else:
                         phrase_phonified.append(str(self.en_g2p(word)))
-                elif word in self.phone_dictionary[language]:
+                elif word in phone_dictionary[language]:
                     # if a word could not be parsed, skip it
-                    phrase_phonified.append(str(self.phone_dictionary[language][word]))
+                    phrase_phonified.append(str(phone_dictionary[language][word]))
             # text_phonified.append(self.__post_phonify(" ".join(phrase_phonified),language, gender))
             text_phonified.append(" ".join(phrase_phonified))
         return text_phonified
@@ -406,13 +429,13 @@ class Phonifier:
                 merged_string += word + " "
         return merged_string.strip()
 
-    def __phonify_list(self, text, language, gender):
+    def __phonify_list(self, text, language, gender, phone_dictionary):
         # text is expected to be a list of list of strings
         words = set(self.__merge_lists(text).split(" "))
         non_dict_words = []
-        if language in self.phone_dictionary:
+        if language in phone_dictionary:
             for word in words:
-                if word not in self.phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
+                if word not in phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
                     non_dict_words.append(word)
         else:
             non_dict_words = words
@@ -431,9 +454,9 @@ class Phonifier:
             if(language == 'tamil'):
                 current_directory = os.getcwd()
                 #tamil_parser_cmd = "tamil_parser.sh"
-                tamil_parser_cmd = f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser/tamil_parser.sh"
+                tamil_parser_cmd = f"{current_directory}/ssn_parser_new/tamil_parser.py"
                 #subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser"])
-                subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser"])
+                subprocess.run(["python", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser_new"])
                 
             elif(language == 'english'):
                 phn_out_dict = {}
@@ -467,10 +490,10 @@ class Phonifier:
                 df = pd.read_csv(out_dict_file, delimiter="\t", header=None, dtype=str)
                 new_dict = df.dropna().set_index(0).to_dict('dict')[1]
                 print(new_dict)
-                if language not in self.phone_dictionary:
-                    self.phone_dictionary[language] = new_dict
+                if language not in phone_dictionary:
+                    phone_dictionary[language] = new_dict
                 else:
-                    self.phone_dictionary[language].update(new_dict)
+                    phone_dictionary[language].update(new_dict)
                 # run a non-blocking child process to update the dictionary file
                 p = Process(target=add_to_dictionary, args=(new_dict, os.path.join(self.dict_location, language)))
                 p.start()
@@ -485,27 +508,27 @@ class Phonifier:
                 phrase_phonified = []
                 for word in phrase.split(" "):
                     if self.__is_english_word(word):
-                        if word in self.phone_dictionary["english"]:
-                            phrase_phonified.append(str(self.phone_dictionary["english"][word]))
+                        if word in phone_dictionary["english"]:
+                            phrase_phonified.append(str(phone_dictionary["english"][word]))
                         else:
                             phrase_phonified.append(str(self.en_g2p(word)))
-                    elif word in self.phone_dictionary[language]:
+                    elif word in phone_dictionary[language]:
                         # if a word could not be parsed, skip it
-                        phrase_phonified.append(str(self.phone_dictionary[language][word]))
+                        phrase_phonified.append(str(phone_dictionary[language][word]))
                 # line_phonified.append(self.__post_phonify(" ".join(phrase_phonified), language, gender))
                 line_phonified.append(" ".join(phrase_phonified))
             text_phonified.append(line_phonified)
         return text_phonified
 
-    def phonify(self, text, language, gender):
+    def phonify(self, text, language, gender, phone_dictionary):
         if not isinstance(text, list):
             out = self.__phonify([text], language, gender)
             return out[0]
-        return self.__phonify(text, language, gender)
+        return self.__phonify(text, language, gender, phone_dictionary)
     
-    def phonify_list(self, text, language, gender):
+    def phonify_list(self, text, language, gender, phone_dictionary):
         if isinstance(text, list):
-            return self.__phonify_list(text, language, gender)
+            return self.__phonify_list(text, language, gender, phone_dictionary)
         else:
             print("Error!! Expected to have a list as input.")
 
@@ -763,7 +786,7 @@ class TTSDurAlignPreprocessor:
         self.phonifier = phonifier
         self.post_processor = post_processor
 
-    def preprocess(self, text, language, gender):
+    def preprocess(self, text, language, gender, phone_dictionary):
         # text = text.strip()
         print(text)
         text = self.text_cleaner.clean(text)
@@ -775,7 +798,13 @@ class TTSDurAlignPreprocessor:
         # print(text)
         phrasified_text = TextPhrasifier.phrasify(text)
         #print("phrased",phrasified_text)
-        phonified_text = self.phonifier.phonify(phrasified_text, language, gender)
+
+        if language not in list(phone_dictionary.keys()):
+            phone_dictionary = self.phonifier.load_lang_dict(language, phone_dictionary)
+
+        print(phone_dictionary.keys())
+
+        phonified_text = self.phonifier.phonify(phrasified_text, language, gender, phone_dictionary)
         print("phonetext",phonified_text)
         phonified_text = self.post_processor.textProcesor(phonified_text)
         print(phonified_text)
@@ -811,7 +840,7 @@ class CharTextPreprocessor:
         self.text_cleaner = text_cleaner
         self.text_normalizer = text_normalizer
 
-    def preprocess(self, text, language, gender=None):
+    def preprocess(self, text, language, gender=None, phone_dictionary=None):
         text = text.strip()
         text = self.text_cleaner.clean(text)
         # text = self.text_normalizer.insert_space(text)
@@ -853,14 +882,16 @@ class TTSPreprocessor:
         self.text_phrasefier = text_phrasefier
         self.post_processor = post_processor
         
-    def preprocess(self, text, language, gender):
+    def preprocess(self, text, language, gender, phone_dictionary):
         text = text.strip()
         text = self.text_cleaner.clean(text)
         # text = self.text_normalizer.insert_space(text)
         text = self.text_normalizer.num2text(text, language)
         text = self.text_normalizer.normalize(text, language)
         phrasified_text = TextPhrasifier.phrasify(text)
-        phonified_text = self.phonifier.phonify(phrasified_text, language, gender)
+        if language not in list(phone_dictionary.keys()):
+            phone_dictionary = self.phonifier.load_lang_dict(language, phone_dictionary)
+        phonified_text = self.phonifier.phonify(phrasified_text, language, gender, phone_dictionary)
         print(phonified_text)
         phonified_text = self.post_processor.textProcesorForEnglish(phonified_text)
         print(phonified_text)
