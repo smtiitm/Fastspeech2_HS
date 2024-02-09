@@ -1,0 +1,10 @@
+# use this requirement file if not usong conda, but pip
+# create the tts-hs-hifigan virtual environment using "python3 -m venv tts-hs-hifigan" > "source tts-hs-hifigan/bin/activate" > "pip install -r requirements.txt"
+flask
+requests
+torch
+espnet
+matplotlib
+pandas
+indic-num2words
+gunicorn
