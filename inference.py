@@ -66,15 +66,17 @@ def load_fastspeech2_model(language, gender, device):
     
     return Text2Speech(train_config=tts_config, model_file=tts_model, device=device)
 
-def text_synthesis(language, gender, sample_text, vocoder, MAX_WAV_VALUE, device):
+def text_synthesis(language, gender, sample_text, vocoder, MAX_WAV_VALUE, device, alpha):
     # Perform Text-to-Speech synthesis
     with torch.no_grad():
         # Load the FastSpeech2 model for the specified language and gender
         
         model = load_fastspeech2_model(language, gender, device)
+
+        print('Alpha ', alpha)
        
         # Generate mel-spectrograms from the input text using the FastSpeech2 model
-        out = model(sample_text, decode_conf={"alpha": 1})
+        out = model(sample_text, decode_conf={"alpha": alpha})
         print("TTS Done")  
         x = out["feat_gen_denorm"].T.unsqueeze(0) * 2.3262
         x = x.to(device)
@@ -95,6 +97,7 @@ if __name__ == "__main__":
     parser.add_argument("--gender", type=str, required=True, help="Gender (e.g., female)")
     parser.add_argument("--sample_text", type=str, required=True, help="Text to be synthesized")
     parser.add_argument("--output_file", type=str, default="", help="Output WAV file path")
+    parser.add_argument("--alpha", type=float, default=1, help="Alpha Parameter")
 
     args = parser.parse_args()
 
@@ -117,7 +120,7 @@ if __name__ == "__main__":
     preprocessed_text = " ".join(preprocessed_text)
 
     
-    audio = text_synthesis(args.language, args.gender, preprocessed_text, vocoder, MAX_WAV_VALUE, device)
+    audio = text_synthesis(args.language, args.gender, preprocessed_text, vocoder, MAX_WAV_VALUE, device, args.alpha)
     if args.output_file:
         output_file = f"{args.output_file}"
     else:
