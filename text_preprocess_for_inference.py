@@ -703,6 +703,57 @@ class TextNormalizer:
         else:
             print(f"No num-to-char for the given language {language}.")
             return self.__post_cleaning_list(text)
+        
+    def numberToTextConverter(self, text, language):
+        if language in self.keydict.keys():
+            matches = re.findall(r'\d+\.\d+|\d+', text)
+            digits = sorted([int(match) if match.isdigit() else match if re.match(r'^\d+(\.\d+)?$', match) else str(match) for match in matches], key=lambda x: float(x) if isinstance(x, str) and '.' in x else x, reverse=True)
+            if digits:
+                for digit in digits:
+                        
+                    if isinstance(digit, int):
+                        text = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language]).replace(",", "")+' ', text)
+                    else:
+                        parts = str(digit).split('.')
+                        integer_part = int(parts[0])
+                        data1 = num_to_word(integer_part, self.keydict[language]).replace(",", "")
+                        decimal_part = str(parts[1])
+                        data2 = ''
+                        for i in decimal_part:
+                            data2 = data2+' '+num_to_word(i, self.keydict[language])
+                        if language == 'hindi':
+                            final_data = f'{data1} दशमलव {data2}'
+                        elif language == 'tamil':
+                            final_data = f'{data1} புள்ளி {data2}'
+                        else:
+                            final_data = f'{data1} point {data2}'
+
+                            
+                        text = re.sub(str(digit), ' '+final_data+' ', text)
+
+            return self.__post_cleaning(text)
+        else:
+
+
+            words = {
+                '0': 'zero', '1': 'one', '2': 'two', '3': 'three', '4': 'four',
+                '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine'
+            }
+
+
+            # Use regular expression to find and replace decimal points in numbers
+            text = re.sub(r'(?<=\d)\.(?=\d)', ' point ', text)
+
+            # Find all occurrences of numbers with decimal points and convert them to words
+            matches = re.findall(r'point (\d+)', text)
+
+            for match in matches:
+                replacement = ' '.join(words[digit] for digit in match)
+                text = text.replace(f'point {match}', f'point {replacement}', 1)
+
+
+            return self.__post_cleaning(text)
+
 
     def normalize(self, text, language):
         return self.__post_cleaning(text)
@@ -789,10 +840,11 @@ class TTSDurAlignPreprocessor:
     def preprocess(self, text, language, gender, phone_dictionary):
         # text = text.strip()
         print(text)
+        text = self.text_normalizer.numberToTextConverter(text, language)
         text = self.text_cleaner.clean(text)
         print("cleaned text", text)
         # text = self.text_normalizer.insert_space(text)
-        text = self.text_normalizer.num2text(text, language)
+        #text = self.text_normalizer.num2text(text, language)
         # print(text)
         text = self.text_normalizer.normalize(text, language)
         # print(text)
@@ -842,9 +894,10 @@ class CharTextPreprocessor:
 
     def preprocess(self, text, language, gender=None, phone_dictionary=None):
         text = text.strip()
+        text = self.text_normalizer.numberToTextConverter(text, language)
         text = self.text_cleaner.clean(text)
         # text = self.text_normalizer.insert_space(text)
-        text = self.text_normalizer.num2text(text, language)
+        #text = self.text_normalizer.num2text(text, language)
         text = self.text_normalizer.normalize(text, language)
         phrasified_text = TextPhrasifier.phrasify(text)
         phonified_text = phrasified_text # No phonification for character TTS models
@@ -884,9 +937,10 @@ class TTSPreprocessor:
         
     def preprocess(self, text, language, gender, phone_dictionary):
         text = text.strip()
+        text = self.text_normalizer.numberToTextConverter(text, language)
         text = self.text_cleaner.clean(text)
         # text = self.text_normalizer.insert_space(text)
-        text = self.text_normalizer.num2text(text, language)
+        #text = self.text_normalizer.num2text(text, language)
         text = self.text_normalizer.normalize(text, language)
         phrasified_text = TextPhrasifier.phrasify(text)
         if language not in list(phone_dictionary.keys()):
