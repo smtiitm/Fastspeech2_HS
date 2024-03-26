@@ -534,8 +534,8 @@ class Phonifier:
 
 
 class TextNormalizer:
-    def __init__(self, char_map_location=None, phonifier = Phonifier()):
-        self.phonifier = phonifier
+    def __init__(self, char_map_location=None):
+        # self.phonifier = phonifier
         if char_map_location is None:
             char_map_location = "charmap"
     
@@ -561,8 +561,8 @@ class TextNormalizer:
             "punjabi" : "pa"
         }
         
-        self.g2p = G2p()
-        print('Loading G2P model... Done!')
+        # self.g2p = G2p()
+        # print('Loading G2P model... Done!')
 
     def __post_cleaning(self, text):
         for key, replacement in self.cleaning_rules.items():
@@ -826,23 +826,40 @@ class DurAlignTextProcessor:
         return output_text
 
 
-class TTSDurAlignPreprocessor:
+
+
+class SharedInit:
     def __init__(self,
                 text_cleaner = TextCleaner(),
                 text_normalizer=TextNormalizer(),
                 phonifier = Phonifier(),
+                text_phrasefier = TextPhrasifier(),
                 post_processor = DurAlignTextProcessor()):
         self.text_cleaner = text_cleaner
         self.text_normalizer = text_normalizer
         self.phonifier = phonifier
+        self.text_phrasefier = text_phrasefier
         self.post_processor = post_processor
+
+
+
+class TTSDurAlignPreprocessor(SharedInit):
+    # def __init__(self,
+    #             text_cleaner = TextCleaner(),
+    #             text_normalizer=TextNormalizer(),
+    #             phonifier = Phonifier(),
+    #             post_processor = DurAlignTextProcessor()):
+    #     self.text_cleaner = text_cleaner
+    #     self.text_normalizer = text_normalizer
+    #     self.phonifier = phonifier
+    #     self.post_processor = post_processor
 
     def preprocess(self, text, language, gender, phone_dictionary):
         # text = text.strip()
-        print(text)
+        #print(text)
         text = self.text_normalizer.numberToTextConverter(text, language)
         text = self.text_cleaner.clean(text)
-        print("cleaned text", text)
+        #print("cleaned text", text)
         # text = self.text_normalizer.insert_space(text)
         #text = self.text_normalizer.num2text(text, language)
         # print(text)
@@ -854,24 +871,24 @@ class TTSDurAlignPreprocessor:
         if language not in list(phone_dictionary.keys()):
             phone_dictionary = self.phonifier.load_lang_dict(language, phone_dictionary)
 
-        print(phone_dictionary.keys())
+        #print(phone_dictionary.keys())
 
         phonified_text = self.phonifier.phonify(phrasified_text, language, gender, phone_dictionary)
-        print("phonetext",phonified_text)
+        #print("phonetext",phonified_text)
         phonified_text = self.post_processor.textProcesor(phonified_text)
-        print(phonified_text)
+        #print(phonified_text)
         return phonified_text, phrasified_text
 
-class TTSDurAlignPreprocessor_VTT:
-    def __init__(self,
-                text_cleaner = TextCleaner(),
-                text_normalizer=TextNormalizer(),
-                phonifier = Phonifier(),
-                post_processor = DurAlignTextProcessor()):
-        self.text_cleaner = text_cleaner
-        self.text_normalizer = text_normalizer
-        self.phonifier = phonifier
-        self.post_processor = post_processor
+class TTSDurAlignPreprocessor_VTT(SharedInit):
+    # def __init__(self,
+    #             text_cleaner = TextCleaner(),
+    #             text_normalizer=TextNormalizer(),
+    #             phonifier = Phonifier(),
+    #             post_processor = DurAlignTextProcessor()):
+    #     self.text_cleaner = text_cleaner
+    #     self.text_normalizer = text_normalizer
+    #     self.phonifier = phonifier
+    #     self.post_processor = post_processor
 
     def preprocess(self, text, language, gender):
         # text = text.strip()
@@ -885,12 +902,12 @@ class TTSDurAlignPreprocessor_VTT:
         return phonified_text, phrasified_text
 
 
-class CharTextPreprocessor:
-    def __init__(self,
-                text_cleaner = TextCleaner(),
-                text_normalizer=TextNormalizer()):
-        self.text_cleaner = text_cleaner
-        self.text_normalizer = text_normalizer
+class CharTextPreprocessor(SharedInit):
+    # def __init__(self,
+    #             text_cleaner = TextCleaner(),
+    #             text_normalizer=TextNormalizer()):
+    #     self.text_cleaner = text_cleaner
+    #     self.text_normalizer = text_normalizer
 
     def preprocess(self, text, language, gender=None, phone_dictionary=None):
         text = text.strip()
@@ -903,13 +920,13 @@ class CharTextPreprocessor:
         phonified_text = phrasified_text # No phonification for character TTS models
         return phonified_text, phrasified_text
 
-class CharTextPreprocessor_VTT:
-    def __init__(self,
-                text_cleaner = TextCleaner(),
-                text_normalizer=TextNormalizer()
-                ):
-        self.text_cleaner = text_cleaner
-        self.text_normalizer = text_normalizer
+class CharTextPreprocessor_VTT(SharedInit):
+    # def __init__(self,
+    #             text_cleaner = TextCleaner(),
+    #             text_normalizer=TextNormalizer()
+    #             ):
+    #     self.text_cleaner = text_cleaner
+    #     self.text_normalizer = text_normalizer
 
     def preprocess(self, text, language, gender=None):
         # text = text.strip()
@@ -922,18 +939,18 @@ class CharTextPreprocessor_VTT:
         return phonified_text, phrasified_text
 
 
-class TTSPreprocessor:
-    def __init__(self,
-                text_cleaner = TextCleaner(),
-                text_normalizer=TextNormalizer(),
-                phonifier = Phonifier(),
-                text_phrasefier = TextPhrasifier(),
-                post_processor = DurAlignTextProcessor()):
-        self.text_cleaner = text_cleaner
-        self.text_normalizer = text_normalizer
-        self.phonifier = phonifier
-        self.text_phrasefier = text_phrasefier
-        self.post_processor = post_processor
+class TTSPreprocessor(SharedInit):
+    # def __init__(self,
+    #             text_cleaner = TextCleaner(),
+    #             text_normalizer=TextNormalizer(),
+    #             phonifier = Phonifier(),
+    #             text_phrasefier = TextPhrasifier(),
+    #             post_processor = DurAlignTextProcessor()):
+    #     self.text_cleaner = text_cleaner
+    #     self.text_normalizer = text_normalizer
+    #     self.phonifier = phonifier
+    #     self.text_phrasefier = text_phrasefier
+    #     self.post_processor = post_processor
         
     def preprocess(self, text, language, gender, phone_dictionary):
         text = text.strip()
@@ -946,21 +963,21 @@ class TTSPreprocessor:
         if language not in list(phone_dictionary.keys()):
             phone_dictionary = self.phonifier.load_lang_dict(language, phone_dictionary)
         phonified_text = self.phonifier.phonify(phrasified_text, language, gender, phone_dictionary)
-        print(phonified_text)
+        #print(phonified_text)
         phonified_text = self.post_processor.textProcesorForEnglish(phonified_text)
-        print(phonified_text)
+        #print(phonified_text)
         return phonified_text, phrasified_text
 
-class TTSPreprocessor_VTT:
-    def __init__(self,
-                text_cleaner = TextCleaner(),
-                text_normalizer=TextNormalizer(),
-                phonifier = Phonifier(),
-                text_phrasefier = TextPhrasifier_List()):
-        self.text_cleaner = text_cleaner
-        self.text_normalizer = text_normalizer
-        self.phonifier = phonifier
-        self.text_phrasefier = text_phrasefier
+class TTSPreprocessor_VTT(SharedInit):
+    # def __init__(self,
+    #             text_cleaner = TextCleaner(),
+    #             text_normalizer=TextNormalizer(),
+    #             phonifier = Phonifier(),
+    #             text_phrasefier = TextPhrasifier_List()):
+    #     self.text_cleaner = text_cleaner
+    #     self.text_normalizer = text_normalizer
+    #     self.phonifier = phonifier
+    #     self.text_phrasefier = text_phrasefier
 
     def preprocess(self, text, language, gender):
         # print(f"Original text: {text}")

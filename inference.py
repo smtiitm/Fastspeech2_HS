@@ -73,7 +73,6 @@ def text_synthesis(language, gender, sample_text, vocoder, MAX_WAV_VALUE, device
         
         model = load_fastspeech2_model(language, gender, device)
 
-        print('Alpha ', alpha)
        
         # Generate mel-spectrograms from the input text using the FastSpeech2 model
         out = model(sample_text, decode_conf={"alpha": alpha})
@@ -89,6 +88,11 @@ def text_synthesis(language, gender, sample_text, vocoder, MAX_WAV_VALUE, device
         
         # Return the synthesized audio
         return audio
+    
+def split_into_chunks(text, words_per_chunk=100):
+    words = text.split()
+    chunks = [words[i:i + words_per_chunk] for i in range(0, len(words), words_per_chunk)]
+    return [' '.join(chunk) for chunk in chunks]
 
 
 if __name__ == "__main__":
@@ -115,15 +119,37 @@ if __name__ == "__main__":
     else:
             preprocessor = TTSDurAlignPreprocessor()
 
-    # Preprocess the sample text
-    preprocessed_text, phrases = preprocessor.preprocess(args.sample_text, args.language, args.gender, phone_dictionary)
-    preprocessed_text = " ".join(preprocessed_text)
 
-    
-    audio = text_synthesis(args.language, args.gender, preprocessed_text, vocoder, MAX_WAV_VALUE, device, args.alpha)
-    if args.output_file:
-        output_file = f"{args.output_file}"
-    else:
-        output_file = f"{args.language}_{args.gender}_output.wav"
+    import concurrent.futures
+    import numpy as np
+    import time
 
-    write(output_file, SAMPLING_RATE, audio)
+
+    start_time = time.time()
+    audio_arr = []  # Initialize an empty list to store audio samples
+    result = split_into_chunks(args.sample_text)
+
+    # Use ThreadPoolExecutor for concurrent execution
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Process each text sample concurrently
+        for sample_text in result:
+            #print("sample_text -- ", sample_text)
+            
+            # Preprocess the text and obtain a list of phrases
+            preprocessed_text, phrases = preprocessor.preprocess(sample_text, args.language, args.gender, phone_dictionary)
+            preprocessed_text = " ".join(preprocessed_text)
+
+            # Generate audio from the preprocessed text using a text-to-speech synthesis function
+            audio = text_synthesis(args.language, args.gender, preprocessed_text, vocoder, MAX_WAV_VALUE, device, args.alpha)
+
+            
+            # Set the output file name
+            if args.output_file:
+                output_file = f"{args.output_file}"
+            else:
+                output_file = f"{args.language}_{args.gender}_output.wav"
+
+            # Append the generated audio to the list
+            audio_arr.append(audio)
+    result_array = np.concatenate(audio_arr, axis=0)
+    write(output_file, SAMPLING_RATE, result_array)
