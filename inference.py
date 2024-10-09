@@ -11,14 +11,18 @@ from meldataset import MAX_WAV_VALUE
 from env import AttrDict
 import json
 import yaml
+import concurrent.futures
+import numpy as np
+import time
+
 from text_preprocess_for_inference import TTSDurAlignPreprocessor, CharTextPreprocessor, TTSPreprocessor
 
-SAMPLING_RATE = 22050
+SAMPLING_RATE = 48000
 
 def load_hifigan_vocoder(language, gender, device):
     # Load HiFi-GAN vocoder configuration file and generator model for the specified language and gender
-    vocoder_config = f"vocoder/{gender}/aryan/hifigan/config.json"
-    vocoder_generator = f"vocoder/{gender}/aryan/hifigan/generator"
+    vocoder_config = f"vocoder/{gender}/{language}/config.json"
+    vocoder_generator = f"vocoder/{gender}/{language}/generator"
     # Read the contents of the vocoder configuration file
     with open(vocoder_config, 'r') as f:
         data = f.read()
@@ -101,7 +105,7 @@ if __name__ == "__main__":
     parser.add_argument("--gender", type=str, required=True, help="Gender (e.g., female)")
     parser.add_argument("--sample_text", type=str, required=True, help="Text to be synthesized")
     parser.add_argument("--output_file", type=str, default="", help="Output WAV file path")
-    parser.add_argument("--alpha", type=float, default=1, help="Alpha Parameter")
+    parser.add_argument("--alpha", type=float, default=1, help="Alpha Parameter for speed control (e.g. 1.1 (slow) or 0.8 (fast))")
 
     args = parser.parse_args()
 
@@ -120,20 +124,14 @@ if __name__ == "__main__":
             preprocessor = TTSDurAlignPreprocessor()
 
 
-    import concurrent.futures
-    import numpy as np
-    import time
-
 
     start_time = time.time()
-    audio_arr = []  # Initialize an empty list to store audio samples
+    audio_arr = [] 
     result = split_into_chunks(args.sample_text)
 
-    # Use ThreadPoolExecutor for concurrent execution
     with concurrent.futures.ThreadPoolExecutor() as executor:
         # Process each text sample concurrently
         for sample_text in result:
-            #print("sample_text -- ", sample_text)
             
             # Preprocess the text and obtain a list of phrases
             preprocessed_text, phrases = preprocessor.preprocess(sample_text, args.language, args.gender, phone_dictionary)

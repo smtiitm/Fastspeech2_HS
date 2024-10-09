@@ -792,12 +792,12 @@ class DurAlignTextProcessor:
     def __init__(self):
         # this is a static set of cleaning rules to be applied
         self.cleaning_rules = {
-            " +" : "",
+            " +" : " ",
            "^" : "$",
             "$" : ".",
         }
         self.cleaning_rules_English = {
-            " +" : "",
+            " +" : " ",
             "$" : ".",
         }
     def textProcesor(self, text):
@@ -844,15 +844,6 @@ class SharedInit:
 
 
 class TTSDurAlignPreprocessor(SharedInit):
-    # def __init__(self,
-    #             text_cleaner = TextCleaner(),
-    #             text_normalizer=TextNormalizer(),
-    #             phonifier = Phonifier(),
-    #             post_processor = DurAlignTextProcessor()):
-    #     self.text_cleaner = text_cleaner
-    #     self.text_normalizer = text_normalizer
-    #     self.phonifier = phonifier
-    #     self.post_processor = post_processor
 
     def preprocess(self, text, language, gender, phone_dictionary):
         # text = text.strip()
@@ -880,15 +871,6 @@ class TTSDurAlignPreprocessor(SharedInit):
         return phonified_text, phrasified_text
 
 class TTSDurAlignPreprocessor_VTT(SharedInit):
-    # def __init__(self,
-    #             text_cleaner = TextCleaner(),
-    #             text_normalizer=TextNormalizer(),
-    #             phonifier = Phonifier(),
-    #             post_processor = DurAlignTextProcessor()):
-    #     self.text_cleaner = text_cleaner
-    #     self.text_normalizer = text_normalizer
-    #     self.phonifier = phonifier
-    #     self.post_processor = post_processor
 
     def preprocess(self, text, language, gender):
         # text = text.strip()
@@ -903,11 +885,6 @@ class TTSDurAlignPreprocessor_VTT(SharedInit):
 
 
 class CharTextPreprocessor(SharedInit):
-    # def __init__(self,
-    #             text_cleaner = TextCleaner(),
-    #             text_normalizer=TextNormalizer()):
-    #     self.text_cleaner = text_cleaner
-    #     self.text_normalizer = text_normalizer
 
     def preprocess(self, text, language, gender=None, phone_dictionary=None):
         text = text.strip()
@@ -921,12 +898,7 @@ class CharTextPreprocessor(SharedInit):
         return phonified_text, phrasified_text
 
 class CharTextPreprocessor_VTT(SharedInit):
-    # def __init__(self,
-    #             text_cleaner = TextCleaner(),
-    #             text_normalizer=TextNormalizer()
-    #             ):
-    #     self.text_cleaner = text_cleaner
-    #     self.text_normalizer = text_normalizer
+
 
     def preprocess(self, text, language, gender=None):
         # text = text.strip()
@@ -940,18 +912,7 @@ class CharTextPreprocessor_VTT(SharedInit):
 
 
 class TTSPreprocessor(SharedInit):
-    # def __init__(self,
-    #             text_cleaner = TextCleaner(),
-    #             text_normalizer=TextNormalizer(),
-    #             phonifier = Phonifier(),
-    #             text_phrasefier = TextPhrasifier(),
-    #             post_processor = DurAlignTextProcessor()):
-    #     self.text_cleaner = text_cleaner
-    #     self.text_normalizer = text_normalizer
-    #     self.phonifier = phonifier
-    #     self.text_phrasefier = text_phrasefier
-    #     self.post_processor = post_processor
-        
+
     def preprocess(self, text, language, gender, phone_dictionary):
         text = text.strip()
         text = self.text_normalizer.numberToTextConverter(text, language)
@@ -969,15 +930,7 @@ class TTSPreprocessor(SharedInit):
         return phonified_text, phrasified_text
 
 class TTSPreprocessor_VTT(SharedInit):
-    # def __init__(self,
-    #             text_cleaner = TextCleaner(),
-    #             text_normalizer=TextNormalizer(),
-    #             phonifier = Phonifier(),
-    #             text_phrasefier = TextPhrasifier_List()):
-    #     self.text_cleaner = text_cleaner
-    #     self.text_normalizer = text_normalizer
-    #     self.phonifier = phonifier
-    #     self.text_phrasefier = text_phrasefier
+
 
     def preprocess(self, text, language, gender):
         # print(f"Original text: {text}")
