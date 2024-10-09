@@ -1,6 +1,8 @@
 # Latest Fastspeech2 Model using Hybrid Segmentation (HS)
 
-This repository branch contains new and high quality Fastspeech2 Model for Indian languages implemented using the Hybrid Segmentation (HS) for speech synthesis. The model is capable of generating mel-spectrograms from text inputs and can be used to synthesize speech..
+This repository branch contains new and high quality Fastspeech2 Model for Indian languages implemented using the Hybrid Segmentation (HS) for speech synthesis. The models are capable of generating mel-spectrograms from text inputs and can be used to synthesize speech. 
+
+NOTE: The main branch became large in size and underwent changes in the inference and preprocessing scripts, necessitating the creation of a separate branch. Training information and the script will be shared after further optimization and footprint reduction.
 
 Clone this branch using the command:
 
