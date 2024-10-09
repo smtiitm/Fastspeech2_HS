@@ -4,9 +4,9 @@ This repository branch contains new and high quality Fastspeech2 Model for India
 
 Clone this branch using the command:
 
-'''
+```
 git clone -b New-Models --single-branch https://github.com/smtiitm/Fastspeech2_HS.git
-'''
+```
 
 The Repo is large in size. Directly go to the next Installation part. <s>We have used [Git LFS](https://git-lfs.com/) due to Github's size constraint (please install latest git LFS from the link, we have provided the current one below).
 ```
