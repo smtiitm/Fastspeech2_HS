@@ -1,6 +1,6 @@
-# Latest Fastspeech2 Models using Hybrid Segmentation (HS)
+# Latest Fastspeech2 Models using FLAT Start
 
-This repository branch `(New-Models)` contains new and high quality Fastspeech2 Models for Indian languages implemented using the Hybrid Segmentation (HS) for speech synthesis. The models are capable of generating mel-spectrograms from text inputs and can be used to synthesize speech. 
+This repository branch `(New-Models)` contains new and high quality Fastspeech2 Models for Indian languages implemented using the Flat Start for speech synthesis. The models are capable of generating mel-spectrograms from text inputs and can be used to synthesize speech. 
 
 **NOTE: The main branch became large in size and underwent few changes in the inference and preprocessing scripts, necessitating the creation of a separate branch. Training information and the script will be shared after further code optimization and footprint reduction.**
 
