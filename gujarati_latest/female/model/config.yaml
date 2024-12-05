@@ -16,7 +16,7 @@ dist_world_size: 2
 dist_rank: 0
 local_rank: 0
 dist_master_addr: localhost
-dist_master_port: 58041
+dist_master_port: 45101
 dist_launcher: null
 multiprocessing_distributed: true
 unused_parameters: false
@@ -29,7 +29,7 @@ cudnn_deterministic: true
 use_tf32: false
 collect_stats: false
 write_collected_feats: false
-max_epoch: 390
+max_epoch: 1000
 patience: null
 val_scheduler_criterion:
 - valid

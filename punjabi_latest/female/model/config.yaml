@@ -1,133 +1,149 @@
-accum_grad: 8
-adapter: lora
-adapter_conf: {}
-allow_multi_rates: false
-allow_variable_data_keys: false
-batch_bins: 3000000
-batch_size: 20
-batch_type: numel
-best_model_criterion:
-- - valid
-  - loss
-  - min
-- - train
-  - loss
-  - min
-bpemodel: null
-chunk_default_fs: null
-chunk_discard_short_samples: true
-chunk_excluded_key_prefixes: []
-chunk_length: 500
-chunk_max_abs_length: null
-chunk_shift_ratio: 0.5
-cleaner: null
-collect_stats: false
 config: conf/tuning/train_fastspeech2.yaml
-create_graph_in_tensorboard: false
-cudnn_benchmark: false
-cudnn_deterministic: true
-cudnn_enabled: true
-detect_anomaly: false
-dist_backend: nccl
-dist_init_method: env://
-dist_launcher: null
-dist_master_addr: localhost
-dist_master_port: 45599
-dist_rank: 0
-dist_world_size: 2
-distributed: true
+print_config: false
+log_level: INFO
 drop_last_iter: false
 dry_run: false
+iterator_type: sequence
+valid_iterator_type: null
+output_dir: exp/tts_train_fastspeech2_raw_char_None
+ngpu: 1
+seed: 0
+num_workers: 1
+num_att_plot: 3
+dist_backend: nccl
+dist_init_method: env://
+dist_world_size: 2
+dist_rank: 0
+local_rank: 0
+dist_master_addr: localhost
+dist_master_port: 45599
+dist_launcher: null
+multiprocessing_distributed: true
+unused_parameters: false
+sharded_ddp: false
+cudnn_enabled: true
+cudnn_benchmark: false
+cudnn_deterministic: true
+collect_stats: false
+write_collected_feats: false
+max_epoch: 1000
+patience: null
+val_scheduler_criterion:
+- valid
+- loss
 early_stopping_criterion:
 - valid
 - loss
 - min
-energy_extract: energy
-energy_extract_conf:
-  fs: 48000
-  hop_length: 1024
-  n_fft: 8192
-  reduction_factor: 1
-  win_length: 4096
-energy_normalize: global_mvn
-energy_normalize_conf:
-  stats_file: /home/speech/Fastspeech2_HS/punjabi_latest/female/model/energy_stats.npz
-exclude_weight_decay: false
-exclude_weight_decay_conf: {}
-feats_extract: fbank
-feats_extract_conf:
-  fmax: 24000
-  fmin: 0
-  fs: 48000
-  hop_length: 1024
-  n_fft: 8192
-  n_mels: 160
-  win_length: 4096
-fold_length:
-- 150
-- 819200
-freeze_param: []
-g2p: null
+best_model_criterion:
+-   - valid
+    - loss
+    - min
+-   - train
+    - loss
+    - min
+keep_nbest_models: 5
+nbest_averaging_interval: 0
 grad_clip: 1.0
 grad_clip_type: 2.0
 grad_noise: false
-ignore_init_mismatch: false
-init_param: []
-iterator_type: sequence
-keep_nbest_models: 5
-local_rank: 0
-log_interval: null
-log_level: INFO
-max_cache_fd: 32
-max_cache_size: 0.0
-max_epoch: 1000
-model_conf: {}
-multiple_iterator: false
-multiprocessing_distributed: true
-nbest_averaging_interval: 0
-ngpu: 1
+accum_grad: 8
 no_forward_run: false
-non_linguistic_symbols: null
-normalize: global_mvn
-normalize_conf:
-  stats_file: /home/speech/Fastspeech2_HS/punjabi_latest/female/model/feats_stats.npz
-num_att_plot: 3
-num_cache_chunks: 1024
-num_iters_per_epoch: 800
-num_workers: 1
-odim: null
-optim: adam
-optim_conf:
-  lr: 1.0
-output_dir: exp/tts_train_fastspeech2_raw_char_None
-patience: null
-pitch_extract: dio
-pitch_extract_conf:
-  f0max: 400
-  f0min: 80
-  fs: 48000
-  hop_length: 1024
-  n_fft: 8192
-  reduction_factor: 1
-pitch_normalize: global_mvn
-pitch_normalize_conf:
-  stats_file: /home/speech/Fastspeech2_HS/punjabi_latest/female/model/pitch_stats.npz
-pretrain_path: null
-print_config: false
-required:
-- output_dir
-- token_list
 resume: true
+train_dtype: float32
+use_amp: false
+log_interval: null
+use_matplotlib: true
+use_tensorboard: true
+create_graph_in_tensorboard: false
+use_wandb: false
+wandb_project: null
+wandb_id: null
+wandb_entity: null
+wandb_name: null
+wandb_model_log_interval: -1
+detect_anomaly: false
+use_adapter: false
+adapter: lora
 save_strategy: all
-scheduler: noamlr
-scheduler_conf:
-  model_size: 384
-  warmup_steps: 4000
-seed: 0
-sharded_ddp: false
+adapter_conf: {}
+pretrain_path: null
+init_param: []
+ignore_init_mismatch: false
+freeze_param: []
+num_iters_per_epoch: 800
+batch_size: 20
+valid_batch_size: null
+batch_bins: 3000000
+valid_batch_bins: null
+train_shape_file:
+- exp/tts_stats_raw_char_None/train/text_shape.char
+- exp/tts_stats_raw_char_None/train/speech_shape
+valid_shape_file:
+- exp/tts_stats_raw_char_None/valid/text_shape.char
+- exp/tts_stats_raw_char_None/valid/speech_shape
+batch_type: numel
+valid_batch_type: null
+fold_length:
+- 150
+- 819200
+sort_in_batch: descending
 shuffle_within_batch: false
 sort_batch: descending
-sort_in_batch: descending
+multiple_iterator: false
+chunk_length: 500
+chunk_shift_ratio: 0.5
+num_cache_chunks: 1024
+chunk_excluded_key_prefixes: []
+chunk_default_fs: null
+chunk_max_abs_length: null
+chunk_discard_short_samples: true
+train_data_path_and_name_and_type:
+-   - dump/raw/tr_no_dev/text
+    - text
+    - text
+-   - duration_info/tr_no_dev/durations
+    - durations
+    - text_int
+-   - dump/raw/tr_no_dev/wav.scp
+    - speech
+    - sound
+-   - exp/tts_stats_raw_char_None/train/collect_feats/pitch.scp
+    - pitch
+    - npy
+-   - exp/tts_stats_raw_char_None/train/collect_feats/energy.scp
+    - energy
+    - npy
+valid_data_path_and_name_and_type:
+-   - dump/raw/dev/text
+    - text
+    - text
+-   - duration_info/dev/durations
+    - durations
+    - text_int
+-   - dump/raw/dev/wav.scp
+    - speech
+    - sound
+-   - exp/tts_stats_raw_char_None/valid/collect_feats/pitch.scp
+    - pitch
+    - npy
+-   - exp/tts_stats_raw_char_None/valid/collect_feats/energy.scp
+    - energy
+    - npy
+allow_variable_data_keys: false
+max_cache_size: 0.0
+max_cache_fd: 32
+allow_multi_rates: false
+valid_max_cache_size: null
+exclude_weight_decay: false
+exclude_weight_decay_conf: {}
+optim: adam
+optim_conf:
+    lr: 1.0
+scheduler: noamlr
+scheduler_conf:
+    model_size: 384
+    warmup_steps: 4000
 token_list:
 - <blank>
 - <unk>
@@ -139,26 +155,26 @@ token_list:
 - q
 - H
 - k
-- "\u0916"
+- ख
 - g
-- "\u0918"
-- "\u0919"
+- घ
+- ङ
 - c
 - C
 - j
 - J
-- "\u091E"
-- "\u091F"
-- "\u0920"
-- "\u0921"
-- "\u0922"
-- "\u0923"
+- ञ
+- ट
+- ठ
+- ड
+- ढ
+- ण
 - t
-- "\u0925"
+- थ
 - d
-- "\u0927"
+- ध
 - n
-- "\u0929"
+- ऩ
 - p
 - P
 - b
@@ -166,30 +182,30 @@ token_list:
 - m
 - y
 - r
-- "\u0931"
+- ऱ
 - l
-- "\u0D33"
+- ള
 - Z
 - w
-- "\u0936"
-- "\u0937"
+- श
+- ष
 - s
 - h
 - Y
-- "\u093D"
-- "\u0915"
+- ऽ
+- क
 - K
 - G
 - z
 - D
 - T
 - f
-- "\u0960"
-- "\u0D7A"
+- ॠ
+- ൺ
 - N
-- "\u0D7C"
-- "\u0D7D"
-- "\u0D7E"
+- ർ
+- ൽ
+- ൾ
 - a
 - A
 - i
@@ -197,119 +213,103 @@ token_list:
 - u
 - U
 - R
-- "\u090D"
+- ऍ
 - e
 - E
-- "\u0910"
-- "\u0911"
+- ऐ
+- ऑ
 - o
 - O
-- "\u0914"
-- "\u0B89"
+- औ
+- உ
 - <sos/eos>
+odim: null
+model_conf: {}
+use_preprocessor: true
 token_type: char
-train_data_path_and_name_and_type:
-- - dump/raw/tr_no_dev/text
-  - text
-  - text
-- - duration_info/tr_no_dev/durations
-  - durations
-  - text_int
-- - dump/raw/tr_no_dev/wav.scp
-  - speech
-  - sound
-- - exp/tts_stats_raw_char_None/train/collect_feats/pitch.scp
-  - pitch
-  - npy
-- - exp/tts_stats_raw_char_None/train/collect_feats/energy.scp
-  - energy
-  - npy
-train_dtype: float32
-train_shape_file:
-- exp/tts_stats_raw_char_None/train/text_shape.char
-- exp/tts_stats_raw_char_None/train/speech_shape
+bpemodel: null
+non_linguistic_symbols: null
+cleaner: null
+g2p: null
+feats_extract: fbank
+feats_extract_conf:
+    n_fft: 8192
+    hop_length: 1024
+    win_length: 4096
+    fs: 48000
+    fmin: 0
+    fmax: 24000
+    n_mels: 160
+normalize: global_mvn
+normalize_conf:
+    stats_file: exp/tts_stats_raw_char_None/train/feats_stats.npz
 tts: fastspeech2
 tts_conf:
-  adim: 384
-  aheads: 2
-  decoder_normalize_before: true
-  dlayers: 4
-  dunits: 1536
-  duration_predictor_chans: 256
-  duration_predictor_kernel_size: 3
-  duration_predictor_layers: 2
-  elayers: 4
-  encoder_normalize_before: true
-  energy_embed_dropout: 0.0
-  energy_embed_kernel_size: 1
-  energy_predictor_chans: 256
-  energy_predictor_dropout: 0.5
-  energy_predictor_kernel_size: 3
-  energy_predictor_layers: 2
-  eunits: 1536
-  init_dec_alpha: 1.0
-  init_enc_alpha: 1.0
-  init_type: xavier_uniform
-  pitch_embed_dropout: 0.0
-  pitch_embed_kernel_size: 1
-  pitch_predictor_chans: 256
-  pitch_predictor_dropout: 0.5
-  pitch_predictor_kernel_size: 5
-  pitch_predictor_layers: 5
-  positionwise_conv_kernel_size: 3
-  positionwise_layer_type: conv1d
-  postnet_chans: 256
-  postnet_filts: 5
-  postnet_layers: 5
-  reduction_factor: 1
-  stop_gradient_from_energy_predictor: false
-  stop_gradient_from_pitch_predictor: true
-  transformer_dec_attn_dropout_rate: 0.2
-  transformer_dec_dropout_rate: 0.2
-  transformer_dec_positional_dropout_rate: 0.2
-  transformer_enc_attn_dropout_rate: 0.2
-  transformer_enc_dropout_rate: 0.2
-  transformer_enc_positional_dropout_rate: 0.2
-  use_masking: true
-  use_scaled_pos_enc: true
-unused_parameters: false
-use_adapter: false
-use_amp: false
-use_matplotlib: true
-use_preprocessor: true
-use_tensorboard: true
-use_wandb: false
-val_scheduler_criterion:
-- valid
-- loss
-valid_batch_bins: null
-valid_batch_size: null
-valid_batch_type: null
-valid_data_path_and_name_and_type:
-- - dump/raw/dev/text
-  - text
-  - text
-- - duration_info/dev/durations
-  - durations
-  - text_int
-- - dump/raw/dev/wav.scp
-  - speech
-  - sound
-- - exp/tts_stats_raw_char_None/valid/collect_feats/pitch.scp
-  - pitch
-  - npy
-- - exp/tts_stats_raw_char_None/valid/collect_feats/energy.scp
-  - energy
-  - npy
-valid_iterator_type: null
-valid_max_cache_size: null
-valid_shape_file:
-- exp/tts_stats_raw_char_None/valid/text_shape.char
-- exp/tts_stats_raw_char_None/valid/speech_shape
+    adim: 384
+    aheads: 2
+    elayers: 4
+    eunits: 1536
+    dlayers: 4
+    dunits: 1536
+    positionwise_layer_type: conv1d
+    positionwise_conv_kernel_size: 3
+    duration_predictor_layers: 2
+    duration_predictor_chans: 256
+    duration_predictor_kernel_size: 3
+    postnet_layers: 5
+    postnet_filts: 5
+    postnet_chans: 256
+    use_masking: true
+    use_scaled_pos_enc: true
+    encoder_normalize_before: true
+    decoder_normalize_before: true
+    reduction_factor: 1
+    init_type: xavier_uniform
+    init_enc_alpha: 1.0
+    init_dec_alpha: 1.0
+    transformer_enc_dropout_rate: 0.2
+    transformer_enc_positional_dropout_rate: 0.2
+    transformer_enc_attn_dropout_rate: 0.2
+    transformer_dec_dropout_rate: 0.2
+    transformer_dec_positional_dropout_rate: 0.2
+    transformer_dec_attn_dropout_rate: 0.2
+    pitch_predictor_layers: 5
+    pitch_predictor_chans: 256
+    pitch_predictor_kernel_size: 5
+    pitch_predictor_dropout: 0.5
+    pitch_embed_kernel_size: 1
+    pitch_embed_dropout: 0.0
+    stop_gradient_from_pitch_predictor: true
+    energy_predictor_layers: 2
+    energy_predictor_chans: 256
+    energy_predictor_kernel_size: 3
+    energy_predictor_dropout: 0.5
+    energy_embed_kernel_size: 1
+    energy_embed_dropout: 0.0
+    stop_gradient_from_energy_predictor: false
+pitch_extract: dio
+pitch_extract_conf:
+    fs: 48000
+    n_fft: 8192
+    hop_length: 1024
+    f0max: 400
+    f0min: 80
+    reduction_factor: 1
+pitch_normalize: global_mvn
+pitch_normalize_conf:
+    stats_file: exp/tts_stats_raw_char_None/train/pitch_stats.npz
+energy_extract: energy
+energy_extract_conf:
+    fs: 48000
+    n_fft: 8192
+    hop_length: 1024
+    win_length: 4096
+    reduction_factor: 1
+energy_normalize: global_mvn
+energy_normalize_conf:
+    stats_file: exp/tts_stats_raw_char_None/train/energy_stats.npz
+required:
+- output_dir
+- token_list
 version: '202402'
-wandb_entity: null
-wandb_id: null
-wandb_model_log_interval: -1
-wandb_name: null
-wandb_project: null
-write_collected_feats: false
+distributed: true
