@@ -44,7 +44,7 @@ pip install torchaudio
 ## Vocoder
 For generating WAV files from mel-spectrograms, you can use a vocoder of your choice. One popular option is the [HIFIGAN](https://github.com/jik876/hifi-gan) vocoder (Clone this repo and put it in the current working directory). Please refer to the documentation of the vocoder you choose for installation and usage instructions. 
 
-(**We have used the HIFIGAN vocoder and have provided Vocoder for few languages in the Vocoders_latest folder. Make sure to adjust the path in the inference file. **)
+(**We have used the HIFIGAN vocoder and have provided Vocoder for few languages in the Vocoders_latest folder. Make sure to adjust the path in the inference file.**)
 
 ## Usage
 
@@ -64,7 +64,7 @@ python inference.py --sample_text "श्रीलंका और पाकि�
 ```
 The file will be stored as `male_hindi_output.wav` and will be inside current working directory. If **--output_file** argument is not given it will be stored as `<language>_<gender>_output.wav` in the current working directory.
 
-**Use <language>_latest in --language to use latest models.**
+**Use "language"_latest in --language to use latest models.**
 
 
 ### Citation
