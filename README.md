@@ -10,7 +10,7 @@ Clone this branch using the command:
 git clone -b New-Models --single-branch https://github.com/smtiitm/Fastspeech2_HS.git
 ```
 
-The Repo is large in size. New Models are in <language>_latest folder.
+The Repo is large in size. New Models are in "language"_latest folder.
 
 ## Model Files
 
