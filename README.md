@@ -10,7 +10,7 @@ Clone this branch using the command:
 git clone -b New-Models --single-branch https://github.com/smtiitm/Fastspeech2_HS.git
 ```
 
-The Repo is large in size. 
+The Repo is large in size. New Models are in <language>_latest folder.
 
 ## Model Files
 
@@ -44,7 +44,7 @@ pip install torchaudio
 ## Vocoder
 For generating WAV files from mel-spectrograms, you can use a vocoder of your choice. One popular option is the [HIFIGAN](https://github.com/jik876/hifi-gan) vocoder (Clone this repo and put it in the current working directory). Please refer to the documentation of the vocoder you choose for installation and usage instructions. 
 
-(**We have used the HIFIGAN vocoder and have provided Vocoder for Aryan and Dravidian languages**)
+(**We have used the HIFIGAN vocoder and have provided Vocoder for few languages in the Vocoders_latest folder. Make sure to adjust the path in the inference file. **)
 
 ## Usage
 
@@ -63,6 +63,8 @@ python inference.py --sample_text "Your input text here" --language <language> -
 python inference.py --sample_text "श्रीलंका और पाकिस्तान में खेला जा रहा एशिया कप अब तक का सबसे विवादित टूर्नामेंट होता जा रहा है।" --language hindi --gender male --alpha 1 --output_file male_hindi_output.wav
 ```
 The file will be stored as `male_hindi_output.wav` and will be inside current working directory. If **--output_file** argument is not given it will be stored as `<language>_<gender>_output.wav` in the current working directory.
+
+**Use <language>_latest in --language to use latest models.**
 
 
 ### Citation
