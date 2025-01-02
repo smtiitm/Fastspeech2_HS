@@ -1,6 +1,6 @@
 # Fastspeech2 Model using Hybrid Segmentation (HS)
 
-This repository contains a Fastspeech2 Model for 16 Indian languages (male and female both) implemented using the Hybrid Segmentation (HS) for speech synthesis. The model is capable of generating mel-spectrograms from text inputs and can be used to synthesize speech.
+This repository contains a [Fastspeech2](https://arxiv.org/abs/2006.04558) Model for 16 Indian languages (male and female both) implemented using the Hybrid Segmentation (HS) for speech synthesis. The model is capable of generating mel-spectrograms from text inputs and can be used to synthesize speech.
 ![image](https://github.com/user-attachments/assets/61128598-c1b9-4b64-84eb-e14f07f598ac)
 
 The Repo is large in size. Directly go to the next Installation part. <s>We have used [Git LFS](https://git-lfs.com/) due to Github's size constraint (please install latest git LFS from the link, we have provided the current one below).
