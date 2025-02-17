@@ -51,7 +51,7 @@ energy_extract_conf:
   win_length: 4096
 energy_normalize: global_mvn
 energy_normalize_conf:
-  stats_file: /home/speech/Fastspeech2_HS/telugu_latest/male/model/energy_stats.npz
+  stats_file: /home/speech/Fastspeech2_latest models/Fastspeech2_HS/telugu_latest/male/model/energy_stats.npz
 exclude_weight_decay: false
 exclude_weight_decay_conf: {}
 feats_extract: fbank
@@ -90,7 +90,7 @@ no_forward_run: false
 non_linguistic_symbols: null
 normalize: global_mvn
 normalize_conf:
-  stats_file: /home/speech/Fastspeech2_HS/telugu_latest/male/model/feats_stats.npz
+  stats_file: /home/speech/Fastspeech2_latest models/Fastspeech2_HS/telugu_latest/male/model/feats_stats.npz
 num_att_plot: 3
 num_cache_chunks: 1024
 num_iters_per_epoch: 800
@@ -111,7 +111,7 @@ pitch_extract_conf:
   reduction_factor: 1
 pitch_normalize: global_mvn
 pitch_normalize_conf:
-  stats_file: /home/speech/Fastspeech2_HS/telugu_latest/male/model/pitch_stats.npz
+  stats_file: /home/speech/Fastspeech2_latest models/Fastspeech2_HS/telugu_latest/male/model/pitch_stats.npz
 pretrain_path: null
 print_config: false
 required:
