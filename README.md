@@ -12,6 +12,9 @@ git clone -b New-Models --single-branch https://github.com/smtiitm/Fastspeech2_H
 
 The Repo is large in size. New Models are in "language"_latest folder.
 
+Supported languages: Assamese, Bengali, Bodo, Dogri, Gujarati, Hindi, Kannada, Konkani(Maharashtrian), Maithili, Malayalam, Manipuri, Nepali, Punjabi, Rajasthani, Sanskrit, Tamil, Telugu.
+
+
 ## Model Files
 
 The model for each language includes the following files:
