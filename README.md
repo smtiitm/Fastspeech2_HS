@@ -23,6 +23,8 @@ git lfs pull
 ```
 to get the original files in your directory.
 
+### NEw HQ Models are available now in separate branch.
+
 ## Model Files
 
 The model for each language includes the following files:
