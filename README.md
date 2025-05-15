@@ -23,7 +23,7 @@ git lfs pull
 ```
 to get the original files in your directory.
 
-### NEw HQ Models are available now in separate branch.
+### NOTE:  NEw HQ Models are available now in separate branch.
 
 ## Model Files
 
