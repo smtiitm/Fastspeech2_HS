@@ -10,7 +10,8 @@ Fs2 is composed of 6 feed-forward Transformer blocks with multi-head self-attent
 
 The Repo is large in size. We have used [Git LFS](https://git-lfs.com/) due to Github's size constraint (please install latest git LFS from the link, we have provided the current one below).
 
-### LFS Issues : [Look here](https://github.com/smtiitm/Fastspeech2_HS/issues/5#issuecomment-2882869967)
+### LFS Issues and Huggingface models : [Look here](https://github.com/smtiitm/Fastspeech2_HS/issues/5#issuecomment-2882869967)
+
 ```
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.python.sh | bash
 sudo apt-get install git-lfs
