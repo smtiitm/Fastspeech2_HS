@@ -4,11 +4,13 @@ This repository contains a [Fastspeech2](https://arxiv.org/abs/2006.04558) Model
 ![image](https://github.com/user-attachments/assets/61128598-c1b9-4b64-84eb-e14f07f598ac) Image Source ([Fastspeech2](https://arxiv.org/abs/2006.04558))
 
 
-As requested here is the details of FS2 architecture:
+As requested, here is the details of FS2 architecture:
 
 Fs2 is composed of 6 feed-forward Transformer blocks with multi-head self-attention and 1D convolution on both phoneme encoder and mel-spectrogram decoder. In each feed-forward Transformer, the hidden size of multi-head attention is set to 256 and the number of head is set to 2. The kernel size of 1D convolution in the two-layer convolution network is set to 9 and 1, and the input/output size of the number of channels in the first and the second layer is 256/1024 and 1024/256. The duration predictor and variance adaptor, which are composed of stacks of several convolution networks and the final linear projection layer. The convolution layers of the duration predictor and variance adaptor are set to 2 and 5, the kernel size is set to 3, the input/output size of all layers is 256/256, and the dropout rate is set to 0.5. 
 
 The Repo is large in size. We have used [Git LFS](https://git-lfs.com/) due to Github's size constraint (please install latest git LFS from the link, we have provided the current one below).
+
+### LFS Issues : [Look here](https://github.com/smtiitm/Fastspeech2_HS/issues/5#issuecomment-2882869967)
 ```
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.python.sh | bash
 sudo apt-get install git-lfs
