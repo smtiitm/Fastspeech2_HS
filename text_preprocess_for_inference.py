@@ -791,14 +791,23 @@ class TextPhrasifier_List:
 class DurAlignTextProcessor:
     def __init__(self):
         # this is a static set of cleaning rules to be applied
+        # self.cleaning_rules = {
+        #     " +" : "",
+        #    "^" : "$",
+        #     "$" : ".",
+        # }
+        # self.cleaning_rules_English = {
+        #     " +" : "",
+        #     "$" : ".",
+        # }
         self.cleaning_rules = {
             " +" : "",
-           "^" : "$",
-            "$" : ".",
+           "^" : "",
+            "$" : "",
         }
         self.cleaning_rules_English = {
             " +" : "",
-            "$" : ".",
+            "$" : "",
         }
     def textProcesor(self, text):
         for key, replacement in self.cleaning_rules.items():
