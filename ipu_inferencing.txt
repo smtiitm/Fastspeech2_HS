@@ -1,7 +1,0 @@
-python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "/speech/krupavathy/Fastspeech2_HS/test_csvs/ipu/hub_test/demo_0.wav" --alpha 1 --ipu 0
-
-python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "/speech/krupavathy/Fastspeech2_HS/test_csvs/ipu/hub_test/demo_1.wav" --alpha 1 --ipu 1
-
-python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "/speech/krupavathy/Fastspeech2_HS/test_csvs/ipu/hub_test/demo_2.wav" --alpha 1 --ipu 2
-
-python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "/speech/krupavathy/Fastspeech2_HS/test_csvs/ipu/hub_test/demo_3.wav" --alpha 1 --ipu 3
