@@ -1,4 +1,4 @@
-# Fastspeech2 Model using Hybrid Segmentation (HS)
+# New IPU based Fastspeech2 Model using Hybrid Segmentation (HS)
 
 This repository contains a [Fastspeech2](https://arxiv.org/abs/2006.04558) Model for 16 Indian languages (male and female both) implemented using the [Hybrid Segmentation](https://www.isca-archive.org/interspeech_2014/shanmugam14_interspeech.pdf) (HS) for speech synthesis. The model is capable of generating mel-spectrograms from text inputs and can be used to synthesize speech. The Architecture of FS2:
 ![image](https://github.com/user-attachments/assets/61128598-c1b9-4b64-84eb-e14f07f598ac) Image Source ([Fastspeech2](https://arxiv.org/abs/2006.04558))
@@ -70,13 +70,19 @@ The directory paths are Relative. ( But if needed, Make changes to **text_prepro
 
 Use the inference file to synthesize speech from text inputs:
 ```shell
-python inference.py --sample_text "Your input text here" --language <language> --gender <gender> --alpha <alpha> --output_file <file_name.wav OR path/to/file_name.wav>
+python inference1_ipu_exp_3_cmd_for_github.py --sample_text "Your input text here" --language <language> --gender <gender> --alpha <alpha> --output_file <file_name.wav OR path/to/file_name.wav> --ipu 0/1/2/3
 ```
 
 **Example:**
 
 ```
-python inference.py --sample_text "श्रीलंका और पाकिस्तान में खेला जा रहा एशिया कप अब तक का सबसे विवादित टूर्नामेंट होता जा रहा है।" --language hindi --gender male --alpha 1 --output_file male_hindi_output.wav
+python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "demo_0.wav" --alpha 1 --ipu 0
+
+python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "demo_1.wav" --alpha 1 --ipu 1
+
+python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "demo_2.wav" --alpha 1 --ipu 2
+
+python3 inference1_ipu_exp_3_cmd_for_github.py --language hindi --gender male --sample_text "राहूल ने रास्ते में एक सुंदर तितली देखी, जो फूलों पर मंडरा रही थी" --output_file "demo_3.wav" --alpha 1 --ipu 3
 ```
 The file will be stored as `male_hindi_output.wav` and will be inside current working directory. If **--output_file** argument is not given it will be stored as `<language>_<gender>_output.wav` in the current working directory.
 
