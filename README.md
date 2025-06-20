@@ -111,12 +111,12 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 |                | Female | ✅     | ✅     |                      |
 | Manipuri       | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
-| Marathi        | Male   | ✅     | ⬜️     |    Training by CDAC, Mumbai                 |
-|                | Female | ✅     | ⬜️     |    Training by CDAC, Mumbai                 |
+| Marathi        | Male   | ✅     | ⬜️     |                     |
+|                | Female | ✅     | ⬜️     |                    |
 | Nepali         | Male   | ⬜     | ✅     |                      |
 |                | Female | ⬜     | ✅     |                      |
-| Odia           | Male   | ✅     | ⬜️     |    Training by CDAC                   |
-|                | Female | ✅     | ⬜️     |    Training by CDAC                  |
+| Odia           | Male   | ✅     | ⬜️     |                      |
+|                | Female | ✅     | ⬜️     |                     |
 | Punjabi        | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Rajasthani        | Male   | ✅     | ✅     |                      |
