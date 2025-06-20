@@ -101,8 +101,8 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 |                | Female | ✅     | ✅     |                      |
 | Kannada        | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
-| Kashmiri       | Male   | ⬜     | ⬜     |                      |
-|                | Female | ⬜     | ⬜     |                      |
+| Kashmiri       | Male   | ⬜     | ⬜     |   Pending Data Verification                  |
+|                | Female | ⬜     | ⬜     |   Pending Data Verification                  |
 | Konkani        | Male   | ⬜     | ✅     |                      |
 |                | Female | ⬜     | ✅     |                      |
 | Maithili       | Male   | ⬜     | ✅     |                      |
@@ -111,8 +111,8 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 |                | Female | ✅     | ✅     |                      |
 | Manipuri       | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
-| Marathi        | Male   | ✅     | ⬜️     |                      |
-|                | Female | ✅     | ⬜️     |                      |
+| Marathi        | Male   | ✅     | ⬜️     |     Training by CDAC                 |
+|                | Female | ✅     | ⬜️     |     Training by CDAC                 |
 | Nepali         | Male   | ⬜     | ✅     |                      |
 |                | Female | ⬜     | ✅     |                      |
 | Odia           | Male   | ✅     | ⬜️     |                      |
@@ -123,8 +123,8 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 |                | Female | ✅     | ✅     |                      |
 | Sanskrit       | Male   | ⬜     | ✅     |                      |
 |                | Female | ⬜     | ✅     |                      |
-| Sindhi         | Male   | ⬜     | ⬜️     |                      |
-|                | Female | ⬜️     | ⬜️     |                      |
+| Sindhi         | Male   | ⬜     | ⬜️     | Data available now                    |
+|                | Female | ⬜️     | ⬜️     | Data available now                     |
 | Tamil          | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Telugu         | Male   | ✅     | ✅     |                      |
