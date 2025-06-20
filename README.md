@@ -85,7 +85,7 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 - ✅ = Available
 - ⬜ = Not available / To-do
 
-| Language       | Gender | 22kHz(Old_models - main Branch) | 48kHz (New HQ models - Latest_models branch) | Notes               |
+| Language       | Gender | 22kHz(Old_models - main Branch) | 48kHz (New HQ models - New-models branch) | Notes               |
 |----------------|--------|-------|--------|----------------------|
 | Assamese       | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
