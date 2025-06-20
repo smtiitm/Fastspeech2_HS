@@ -79,7 +79,7 @@ python inference.py --sample_text "श्रीलंका और पाकि�
 ```
 The file will be stored as `male_hindi_output.wav` and will be inside current working directory. If **--output_file** argument is not given it will be stored as `<language>_<gender>_output.wav` in the current working directory.
 
-## TTS Model Coverage (Indian Languages)
+## IndicTTS Model Language Coverage)
 
 ### Legend:
 - ☑️ = Available
@@ -90,47 +90,47 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 | Assamese       | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
 | Bengali        | Male   | ☑️     | ☑️     |                      |
+|                | Female | ☑️     | ⬜     | Female Model Not available                     |
+| Bodo           | Male   | ⬜     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
-| Bodo           | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Dogri          | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
+| Dogri          | Male   | ⬜     | ☑️     |                      |
+|                | Female | ⬜     | ☑️     |                      |
 | Gujarati       | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
 | Hindi          | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
 | Kannada        | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
-| Kashmiri       | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Konkani        | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Maithili       | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
+| Kashmiri       | Male   | ⬜     | ⬜     |                      |
+|                | Female | ⬜     | ⬜     |                      |
+| Konkani        | Male   | ⬜     | ☑️     |                      |
+|                | Female | ⬜     | ☑️     |                      |
+| Maithili       | Male   | ⬜     | ☑️     |                      |
+|                | Female | ⬜     | ☑️     |                      |
 | Malayalam      | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
 | Manipuri       | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
-| Marathi        | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Nepali         | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Odia           | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
+| Marathi        | Male   | ☑️     | ⬜️     |                      |
+|                | Female | ☑️     | ⬜️     |                      |
+| Nepali         | Male   | ⬜     | ☑️     |                      |
+|                | Female | ⬜     | ☑️     |                      |
+| Odia           | Male   | ☑️     | ⬜️     |                      |
+|                | Female | ☑️     | ⬜️     |                      |
 | Punjabi        | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
-| Sanskrit       | Male   | ☑️     | ☑️     |                      |
+| Rajasthani        | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
-| Santali        | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Sindhi         | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
+| Sanskrit       | Male   | ⬜     | ☑️     |                      |
+|                | Female | ⬜     | ☑️     |                      |
+| Sindhi         | Male   | ⬜     | ⬜️     |                      |
+|                | Female | ⬜️     | ⬜️     |                      |
 | Tamil          | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
 | Telugu         | Male   | ☑️     | ☑️     |                      |
 |                | Female | ☑️     | ☑️     |                      |
-| Urdu           | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
+| Urdu           | Male   | ☑️     | ⬜️     |                      |
+|                | Female | ☑️     | ⬜️     |                      |
 
 
 
