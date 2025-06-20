@@ -79,7 +79,7 @@ python inference.py --sample_text "श्रीलंका और पाकि�
 ```
 The file will be stored as `male_hindi_output.wav` and will be inside current working directory. If **--output_file** argument is not given it will be stored as `<language>_<gender>_output.wav` in the current working directory.
 
-## IndicTTS Model Language Coverage)
+## IndicTTS Models Language Coverage
 
 ### Legend:
 - ✅ = Available
