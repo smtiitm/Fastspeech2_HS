@@ -82,55 +82,55 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 ## IndicTTS Model Language Coverage)
 
 ### Legend:
-- ☑️ = Available
+- ✅ = Available
 - ⬜ = Not available / To-do
 
 | Language       | Gender | 22kHz(Old_models) | 48kHz (Latest_models) | Notes               |
 |----------------|--------|-------|--------|----------------------|
-| Assamese       | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Bengali        | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ⬜     | Female Model Not available                     |
-| Bodo           | Male   | ⬜     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Dogri          | Male   | ⬜     | ☑️     |                      |
-|                | Female | ⬜     | ☑️     |                      |
-| Gujarati       | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Hindi          | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Kannada        | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
+| Assamese       | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Bengali        | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ⬜     | Female Model Not available                     |
+| Bodo           | Male   | ⬜     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Dogri          | Male   | ⬜     | ✅     |                      |
+|                | Female | ⬜     | ✅     |                      |
+| Gujarati       | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Hindi          | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Kannada        | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
 | Kashmiri       | Male   | ⬜     | ⬜     |                      |
 |                | Female | ⬜     | ⬜     |                      |
-| Konkani        | Male   | ⬜     | ☑️     |                      |
-|                | Female | ⬜     | ☑️     |                      |
-| Maithili       | Male   | ⬜     | ☑️     |                      |
-|                | Female | ⬜     | ☑️     |                      |
-| Malayalam      | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Manipuri       | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Marathi        | Male   | ☑️     | ⬜️     |                      |
-|                | Female | ☑️     | ⬜️     |                      |
-| Nepali         | Male   | ⬜     | ☑️     |                      |
-|                | Female | ⬜     | ☑️     |                      |
-| Odia           | Male   | ☑️     | ⬜️     |                      |
-|                | Female | ☑️     | ⬜️     |                      |
-| Punjabi        | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Rajasthani        | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Sanskrit       | Male   | ⬜     | ☑️     |                      |
-|                | Female | ⬜     | ☑️     |                      |
+| Konkani        | Male   | ⬜     | ✅     |                      |
+|                | Female | ⬜     | ✅     |                      |
+| Maithili       | Male   | ⬜     | ✅     |                      |
+|                | Female | ⬜     | ✅     |                      |
+| Malayalam      | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Manipuri       | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Marathi        | Male   | ✅     | ⬜️     |                      |
+|                | Female | ✅     | ⬜️     |                      |
+| Nepali         | Male   | ⬜     | ✅     |                      |
+|                | Female | ⬜     | ✅     |                      |
+| Odia           | Male   | ✅     | ⬜️     |                      |
+|                | Female | ✅     | ⬜️     |                      |
+| Punjabi        | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Rajasthani        | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Sanskrit       | Male   | ⬜     | ✅     |                      |
+|                | Female | ⬜     | ✅     |                      |
 | Sindhi         | Male   | ⬜     | ⬜️     |                      |
 |                | Female | ⬜️     | ⬜️     |                      |
-| Tamil          | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Telugu         | Male   | ☑️     | ☑️     |                      |
-|                | Female | ☑️     | ☑️     |                      |
-| Urdu           | Male   | ☑️     | ⬜️     |                      |
-|                | Female | ☑️     | ⬜️     |                      |
+| Tamil          | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Telugu         | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅     |                      |
+| Urdu           | Male   | ✅     | ⬜️     |                      |
+|                | Female | ✅     | ⬜️     |                      |
 
 
 
