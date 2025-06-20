@@ -90,7 +90,7 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 | Assamese       | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Bengali        | Male   | ✅     | ✅     |                      |
-|                | Female | ✅     | ⬜     | Female Model Not available                     |
+|                | Female | ✅     | ⬜     | Female Model had training issues                     |
 | Bodo           | Male   | ⬜     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Dogri          | Male   | ⬜     | ✅     |                      |
