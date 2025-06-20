@@ -111,26 +111,26 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 |                | Female | ✅     | ✅     |                      |
 | Manipuri       | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
-| Marathi        | Male   | ✅     | ⬜️     |     Training by CDAC                 |
-|                | Female | ✅     | ⬜️     |     Training by CDAC                 |
+| Marathi        | Male   | ✅     | ⬜️     |    Training by CDAC, Mumbai                 |
+|                | Female | ✅     | ⬜️     |    Training by CDAC, Mumbai                 |
 | Nepali         | Male   | ⬜     | ✅     |                      |
 |                | Female | ⬜     | ✅     |                      |
-| Odia           | Male   | ✅     | ⬜️     |                      |
-|                | Female | ✅     | ⬜️     |                      |
+| Odia           | Male   | ✅     | ⬜️     |    Training by CDAC                   |
+|                | Female | ✅     | ⬜️     |    Training by CDAC                  |
 | Punjabi        | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Rajasthani        | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Sanskrit       | Male   | ⬜     | ✅     |                      |
 |                | Female | ⬜     | ✅     |                      |
-| Sindhi         | Male   | ⬜     | ⬜️     | Data available now                    |
-|                | Female | ⬜️     | ⬜️     | Data available now                     |
+| Sindhi         | Male   | ⬜     | ⬜️     | Pending Data Verification                    |
+|                | Female | ⬜️     | ⬜️     | Pending Data Verification                     |
 | Tamil          | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Telugu         | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
-| Urdu           | Male   | ✅     | ⬜️     |                      |
-|                | Female | ✅     | ⬜️     |                      |
+| Urdu           | Male   | ✅     | ⬜️     |   Data collection in progress                   |
+|                | Female | ✅     | ⬜️     |   Data collection in progress                   |
 
 
 
