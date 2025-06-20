@@ -111,12 +111,12 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 |                | Female | ✅     | ✅     |                      |
 | Manipuri       | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
-| Marathi        | Male   | ✅     | ⬜️     |                     |
-|                | Female | ✅     | ⬜️     |                    |
+| Marathi        | Male   | ✅     | ✅     |                     |
+|                | Female | ✅     | ✅     |                    |
 | Nepali         | Male   | ⬜     | ✅     |                      |
 |                | Female | ⬜     | ✅     |                      |
-| Odia           | Male   | ✅     | ⬜️     |                      |
-|                | Female | ✅     | ⬜️     |                     |
+| Odia           | Male   | ✅     | ✅     |                      |
+|                | Female | ✅     | ✅️     |                     |
 | Punjabi        | Male   | ✅     | ✅     |                      |
 |                | Female | ✅     | ✅     |                      |
 | Rajasthani        | Male   | ✅     | ✅     |                      |
