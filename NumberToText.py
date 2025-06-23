@@ -71,7 +71,10 @@ class NumberDictionary:
         if n <= 20 or (n <= 100 and str(n) in lang_map):
             return lang_map.get(str(n), '')
         elif n < 1000:
-            return f"{lang_map.get(str(n // 100), '')} {lang_map.get('100', '')} {self.convert_to_indian_number(n % 100, lang_map)}"
+            result = f"{lang_map.get(str(n // 100), '')} {lang_map.get('100', '')}"
+            if n % 100 != 0:
+                result += f" {self.convert_to_indian_number(n % 100, lang_map)}"
+            return result.strip()
         else:
             base, term = 0, ''
             for key in sorted(numeric_keys, key=int, reverse=True):  # Sort only numeric keys
