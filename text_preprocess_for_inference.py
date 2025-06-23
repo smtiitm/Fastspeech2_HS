@@ -1,6 +1,7 @@
 '''
 TTS Preprocessing
 Developed by Arun Kumar A(CS20S013) - November 2022
+Updated by Utkarsh Pathak (DA24S011) - Septmeber 2023
 '''
 import os
 import re
@@ -17,6 +18,8 @@ import traceback
 #imports of dependencies from environment.yml
 from num_to_words import num_to_word
 from g2p_en import G2p
+from NumberToText import NumberDictionary
+
 
 def add_to_dictionary(dict_to_add, dict_file):
     append_string = ""
@@ -637,31 +640,72 @@ class TextNormalizer:
             output_list.append(output_string)
         return output_list
 
+    # def num2text(self, text, language):
+    #     if language in self.keydict.keys():
+    #         digits = sorted(list(map(int, re.findall(r'\d+', text))),reverse=True)
+    #         if digits:
+    #             for digit in digits:
+    #                 text = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', text)
+    #         return self.__post_cleaning(text)
+    #     else:
+    #         print(f"No num-to-char for the given language {language}.")
+    #         return self.__post_cleaning(text)
+    #====================================================
+    
     def num2text(self, text, language):
-        if language in self.keydict.keys():
-            digits = sorted(list(map(int, re.findall(r'\d+', text))),reverse=True)
-            if digits:
-                for digit in digits:
-                    text = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', text)
-            return self.__post_cleaning(text)
-        else:
-            print(f"No num-to-char for the given language {language}.")
-            return self.__post_cleaning(text)
+        # print("utkqdd")
 
+        pattern = r'\d+\.\d+|\d+'
+        numbers = re.findall(pattern, text)
+        numbers = [num for num in numbers]
+        temp = NumberDictionary()
+        for data in numbers:
+            num_to_text = ' ' + temp.num2text(data, language)
+            # print(num_to_text)
+            pattern = r'(?<!\d)' + re.escape(data) + r'(?!\d)'
+            text = re.sub(pattern, num_to_text, text)
+        # print(text)
+        return text
+    
     def num2text_list(self, text, language):
         # input is supposed to be a list of strings
-        if language in self.keydict.keys():
+        # if language in self.keydict.keys():
             output_text = []
+            # print("utk")
+            # print("text", text)
+            temp = NumberDictionary()
             for line in text:
-                digits = sorted(list(map(int, re.findall(r'\d+', line))),reverse=True)
-                if digits:
-                    for digit in digits:
-                        line = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', line)
+                # print("lines",line)
+                pattern = r'\d+\.\d+|\d+'
+                numbers = re.findall(pattern, line)
+                numbers = [num for num in numbers]
+
+                for data in numbers:
+                    num_to_text = ' ' + temp.num2text(data, language)
+                    pattern = r'(?<!\d)' + re.escape(data) + r'(?!\d)'
+                    line = re.sub(pattern, num_to_text, line)
                 output_text.append(line)
-            return self.__post_cleaning_list(output_text)
-        else:
-            print(f"No num-to-char for the given language {language}.")
-            return self.__post_cleaning_list(text)
+            # print(output_text)
+            return output_text
+    #====================================================
+    
+
+
+
+    # def num2text_list(self, text, language):
+    #     # input is supposed to be a list of strings
+    #     if language in self.keydict.keys():
+    #         output_text = []
+    #         for line in text:
+    #             digits = sorted(list(map(int, re.findall(r'\d+', line))),reverse=True)
+    #             if digits:
+    #                 for digit in digits:
+    #                     line = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', line)
+    #             output_text.append(line)
+    #         return self.__post_cleaning_list(output_text)
+    #     else:
+    #         print(f"No num-to-char for the given language {language}.")
+    #         return self.__post_cleaning_list(text)
 
     def normalize(self, text, language):
         return self.__post_cleaning(text)
