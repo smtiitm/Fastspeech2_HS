@@ -1,7 +1,7 @@
 '''
 TTS Preprocessing
 Developed by Arun Kumar A(CS20S013) - November 2022
-Code Changes by Utkarsh - 2023
+Updated by Utkarsh Pathak (DA24S011) - Septmeber 2023
 '''
 import os
 import re
@@ -18,6 +18,8 @@ import traceback
 #imports of dependencies from environment.yml
 from num_to_words import num_to_word
 from g2p_en import G2p
+from NumberToText import NumberDictionary
+
 
 def add_to_dictionary(dict_to_add, dict_file):
     append_string = ""
@@ -90,21 +92,21 @@ class Phonifier:
             dict_location = "phone_dict"
         self.dict_location = dict_location
 
-        # self.phone_dictionary = {}
-        # # load dictionary for all the available languages
-        # for dict_file in os.listdir(dict_location):
-        #     try:
-        #         if dict_file.startswith("."):
-        #             # ignore hidden files
-        #             continue
-        #         language = dict_file
-        #         dict_file_path = os.path.join(dict_location, dict_file)
-        #         df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
-        #         self.phone_dictionary[language] = df.set_index(0).to_dict('dict')[1]
-        #     except Exception as e:
-        #         print(traceback.format_exc())
-
-        # print("Phone dictionary loaded for the following languages:", list(self.phone_dictionary.keys()))
+        self.phone_dictionary = {}
+        # load dictionary for all the available languages
+        for dict_file in os.listdir(dict_location):
+            try:
+                if dict_file.startswith("."):
+                    # ignore hidden files
+                    continue
+                language = dict_file
+                dict_file_path = os.path.join(dict_location, dict_file)
+                df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
+                self.phone_dictionary[language] = df.set_index(0).to_dict('dict')[1]
+            except Exception as e:
+                #print(traceback.format_exc())
+                print("")
+        print("Phone dictionary loaded for the following languages:", list(self.phone_dictionary.keys()))
 
         self.g2p = G2p()
         print('Loading G2P model... Done!')
@@ -257,29 +259,6 @@ class Phonifier:
         with open(oov_map_json_file, 'r') as oov_file:
             self.oov_map = json.load(oov_file)
 
-
-
-    def load_lang_dict(self, language, phone_dictionary):            
-        # load dictionary for requested language
-        try:
-
-            dict_file = language
-            print("language", language)
-            dict_file_path = os.path.join(self.dict_location, dict_file)
-            print("dict_file_path", dict_file_path)
-            df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
-            phone_dictionary[language] = df.set_index(0).to_dict('dict')[1]
-
-            dict_file = 'english'
-            dict_file_path = os.path.join(self.dict_location, dict_file)
-            df = pd.read_csv(dict_file_path, delimiter=" ", header=None, dtype=str)
-            phone_dictionary['english'] = df.set_index(0).to_dict('dict')[1]
-            
-        except Exception as e:
-            print(traceback.format_exc())
-
-        return phone_dictionary
-
     def __is_float(self, word):
         parts = word.split('.')
         if len(parts) != 2:
@@ -323,17 +302,17 @@ class Phonifier:
             return True
         return False
 
-    def __phonify(self, text, language, gender, phone_dictionary):
+    def __phonify(self, text, language, gender):
         # text is expected to be a list of strings
         words = set((" ".join(text)).split(" "))
         #print(f"words test: {words}")
         non_dict_words = []
        
         
-        if language in phone_dictionary:
+        if language in self.phone_dictionary:
             for word in words:
                 # print(f"word: {word}")
-                if word not in phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
+                if word not in self.phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
                     non_dict_words.append(word)
                     #print('INSIDE IF CONDITION OF ADDING WORDS')
         else:
@@ -351,10 +330,9 @@ class Phonifier:
 
             if(language == 'tamil'):
                 current_directory = os.getcwd()
-                #tamil_parser_cmd = "tamil_parser.sh"
-                tamil_parser_cmd = f"{current_directory}/ssn_parser_new/tamil_parser.py"
-                #subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser"])
-                subprocess.run(["python", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser_new"])
+       
+                tamil_parser_cmd = f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser/tamil_parser.sh"
+                subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser/Tamil_Parser/ssn_parser"])
             elif(language == 'english'):
                 phn_out_dict = {}
                 for i in range(0,len(non_dict_words)):
@@ -365,7 +343,9 @@ class Phonifier:
                 with open(out_dict_file, "w") as f:
                     f.write(data_str)
             else:
-          
+                # unified_parser_cmd = "phonify_wrapper.sh"
+                
+                # subprocess.run(["bash", unified_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "/speech/arun/tts/tts_api/text2phone/"])
                 out_dict_file = os.path.abspath("tmp/out_dict_" + timestamp)
                 from get_phone_mapped_python import TextReplacer
                 
@@ -393,17 +373,17 @@ class Phonifier:
                 #print('DATAFRAME OUTPUT FILE', df.head())
                 new_dict = df.dropna().set_index(0).to_dict('dict')[1]
                 #print("new dict",new_dict)
-                if language not in phone_dictionary:
-                    phone_dictionary[language] = new_dict
+                if language not in self.phone_dictionary:
+                    self.phone_dictionary[language] = new_dict
                 else:
-                    phone_dictionary[language].update(new_dict)
+                    self.phone_dictionary[language].update(new_dict)
                 # run a non-blocking child process to update the dictionary file
                 #print("phone_dict", self.phone_dictionary)
                 p = Process(target=add_to_dictionary, args=(new_dict, os.path.join(self.dict_location, language)))
                 p.start()
             except Exception as err:
                 print(f"Error: While loading {out_dict_file}")
-                traceback.print_exc()
+                #traceback.print_exc()
 
         # phonify text with dictionary
         text_phonified = []
@@ -411,13 +391,13 @@ class Phonifier:
             phrase_phonified = []
             for word in phrase.split(" "):
                 if self.__is_english_word(word):
-                    if word in phone_dictionary["english"]:
-                        phrase_phonified.append(str(phone_dictionary["english"][word]))
+                    if word in self.phone_dictionary["english"]:
+                        phrase_phonified.append(str(self.phone_dictionary["english"][word]))
                     else:
                         phrase_phonified.append(str(self.en_g2p(word)))
-                elif word in phone_dictionary[language]:
+                elif word in self.phone_dictionary[language]:
                     # if a word could not be parsed, skip it
-                    phrase_phonified.append(str(phone_dictionary[language][word]))
+                    phrase_phonified.append(str(self.phone_dictionary[language][word]))
             # text_phonified.append(self.__post_phonify(" ".join(phrase_phonified),language, gender))
             text_phonified.append(" ".join(phrase_phonified))
         return text_phonified
@@ -429,13 +409,13 @@ class Phonifier:
                 merged_string += word + " "
         return merged_string.strip()
 
-    def __phonify_list(self, text, language, gender, phone_dictionary):
+    def __phonify_list(self, text, language, gender):
         # text is expected to be a list of list of strings
         words = set(self.__merge_lists(text).split(" "))
         non_dict_words = []
-        if language in phone_dictionary:
+        if language in self.phone_dictionary:
             for word in words:
-                if word not in phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
+                if word not in self.phone_dictionary[language] and (language == "english" or (not self.__is_english_word(word))):
                     non_dict_words.append(word)
         else:
             non_dict_words = words
@@ -452,12 +432,8 @@ class Phonifier:
                 f.write("\n".join(non_dict_words))
 
             if(language == 'tamil'):
-                current_directory = os.getcwd()
-                #tamil_parser_cmd = "tamil_parser.sh"
-                tamil_parser_cmd = f"{current_directory}/ssn_parser_new/tamil_parser.py"
-                #subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser"])
-                subprocess.run(["python", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, f"{current_directory}/ssn_parser_new"])
-                
+                tamil_parser_cmd = "tamil_parser.sh"
+                subprocess.run(["bash", tamil_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser/"])
             elif(language == 'english'):
                 phn_out_dict = {}
                 for i in range(0,len(non_dict_words)):
@@ -468,32 +444,18 @@ class Phonifier:
                 with open(out_dict_file, "w") as f:
                     f.write(data_str)
             else:
-                out_dict_file = os.path.abspath("tmp/out_dict_" + timestamp)
-                from get_phone_mapped_python import TextReplacer
-                
-                from indic_unified_parser.uparser import wordparse
-                
-                text_replacer=TextReplacer()
-            
-                parsed_output_list = []
-                for word in non_dict_words:
-                    parsed_word = wordparse(word, 0, 0, 1)
-                    parsed_output_list.append(parsed_word)
-                replaced_output_list = [text_replacer.apply_replacements(parsed_word) for parsed_word in parsed_output_list]
-                with open(out_dict_file, 'w', encoding='utf-8') as file:
-                    for original_word, formatted_word in zip(non_dict_words, replaced_output_list):
-                        line = f"{original_word}\t{formatted_word}\n"
-                        file.write(line)
-                        print(line, end='') 
-        
+                unified_parser_cmd = "phonify_wrapper.sh"
+                subprocess.run(["bash", unified_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "ssn_parser/"])
+            # unified_parser_cmd = "phonify_wrapper.sh"
+            # subprocess.run(["bash", unified_parser_cmd, non_dict_words_file, out_dict_file, timestamp, "/var/www/html/IITM_TTS/E2E_TTS_FS2/text_proc/text2phone/"])
             try:
                 df = pd.read_csv(out_dict_file, delimiter="\t", header=None, dtype=str)
                 new_dict = df.dropna().set_index(0).to_dict('dict')[1]
                 print(new_dict)
-                if language not in phone_dictionary:
-                    phone_dictionary[language] = new_dict
+                if language not in self.phone_dictionary:
+                    self.phone_dictionary[language] = new_dict
                 else:
-                    phone_dictionary[language].update(new_dict)
+                    self.phone_dictionary[language].update(new_dict)
                 # run a non-blocking child process to update the dictionary file
                 p = Process(target=add_to_dictionary, args=(new_dict, os.path.join(self.dict_location, language)))
                 p.start()
@@ -508,34 +470,34 @@ class Phonifier:
                 phrase_phonified = []
                 for word in phrase.split(" "):
                     if self.__is_english_word(word):
-                        if word in phone_dictionary["english"]:
-                            phrase_phonified.append(str(phone_dictionary["english"][word]))
+                        if word in self.phone_dictionary["english"]:
+                            phrase_phonified.append(str(self.phone_dictionary["english"][word]))
                         else:
                             phrase_phonified.append(str(self.en_g2p(word)))
-                    elif word in phone_dictionary[language]:
+                    elif word in self.phone_dictionary[language]:
                         # if a word could not be parsed, skip it
-                        phrase_phonified.append(str(phone_dictionary[language][word]))
+                        phrase_phonified.append(str(self.phone_dictionary[language][word]))
                 # line_phonified.append(self.__post_phonify(" ".join(phrase_phonified), language, gender))
                 line_phonified.append(" ".join(phrase_phonified))
             text_phonified.append(line_phonified)
         return text_phonified
 
-    def phonify(self, text, language, gender, phone_dictionary):
+    def phonify(self, text, language, gender):
         if not isinstance(text, list):
             out = self.__phonify([text], language, gender)
             return out[0]
-        return self.__phonify(text, language, gender, phone_dictionary)
+        return self.__phonify(text, language, gender)
     
-    def phonify_list(self, text, language, gender, phone_dictionary):
+    def phonify_list(self, text, language, gender):
         if isinstance(text, list):
-            return self.__phonify_list(text, language, gender, phone_dictionary)
+            return self.__phonify_list(text, language, gender)
         else:
             print("Error!! Expected to have a list as input.")
 
 
 class TextNormalizer:
-    def __init__(self, char_map_location=None):
-        # self.phonifier = phonifier
+    def __init__(self, char_map_location=None, phonifier = Phonifier()):
+        self.phonifier = phonifier
         if char_map_location is None:
             char_map_location = "charmap"
     
@@ -561,8 +523,8 @@ class TextNormalizer:
             "punjabi" : "pa"
         }
         
-        # self.g2p = G2p()
-        # print('Loading G2P model... Done!')
+        self.g2p = G2p()
+        #print('Loading G2P model... Done!')
 
     def __post_cleaning(self, text):
         for key, replacement in self.cleaning_rules.items():
@@ -678,82 +640,72 @@ class TextNormalizer:
             output_list.append(output_string)
         return output_list
 
+    # def num2text(self, text, language):
+    #     if language in self.keydict.keys():
+    #         digits = sorted(list(map(int, re.findall(r'\d+', text))),reverse=True)
+    #         if digits:
+    #             for digit in digits:
+    #                 text = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', text)
+    #         return self.__post_cleaning(text)
+    #     else:
+    #         print(f"No num-to-char for the given language {language}.")
+    #         return self.__post_cleaning(text)
+    #====================================================
+    
     def num2text(self, text, language):
-        if language in self.keydict.keys():
-            digits = sorted(list(map(int, re.findall(r'\d+', text))),reverse=True)
-            if digits:
-                for digit in digits:
-                    text = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', text)
-            return self.__post_cleaning(text)
-        else:
-            print(f"No num-to-char for the given language {language}.")
-            return self.__post_cleaning(text)
+        # print("utkqdd")
 
+        pattern = r'\d+\.\d+|\d+'
+        numbers = re.findall(pattern, text)
+        numbers = [num for num in numbers]
+        temp = NumberDictionary()
+        for data in numbers:
+            num_to_text = ' ' + temp.num2text(data, language)
+            # print(num_to_text)
+            pattern = r'(?<!\d)' + re.escape(data) + r'(?!\d)'
+            text = re.sub(pattern, num_to_text, text)
+        # print(text)
+        return text
+    
     def num2text_list(self, text, language):
         # input is supposed to be a list of strings
-        if language in self.keydict.keys():
+        # if language in self.keydict.keys():
             output_text = []
+            # print("utk")
+            # print("text", text)
+            temp = NumberDictionary()
             for line in text:
-                digits = sorted(list(map(int, re.findall(r'\d+', line))),reverse=True)
-                if digits:
-                    for digit in digits:
-                        line = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', line)
+                # print("lines",line)
+                pattern = r'\d+\.\d+|\d+'
+                numbers = re.findall(pattern, line)
+                numbers = [num for num in numbers]
+
+                for data in numbers:
+                    num_to_text = ' ' + temp.num2text(data, language)
+                    pattern = r'(?<!\d)' + re.escape(data) + r'(?!\d)'
+                    line = re.sub(pattern, num_to_text, line)
                 output_text.append(line)
-            return self.__post_cleaning_list(output_text)
-        else:
-            print(f"No num-to-char for the given language {language}.")
-            return self.__post_cleaning_list(text)
-        
-    def numberToTextConverter(self, text, language):
-        if language in self.keydict.keys():
-            matches = re.findall(r'\d+\.\d+|\d+', text)
-            digits = sorted([int(match) if match.isdigit() else match if re.match(r'^\d+(\.\d+)?$', match) else str(match) for match in matches], key=lambda x: float(x) if isinstance(x, str) and '.' in x else x, reverse=True)
-            if digits:
-                for digit in digits:
-                        
-                    if isinstance(digit, int):
-                        text = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language]).replace(",", "")+' ', text)
-                    else:
-                        parts = str(digit).split('.')
-                        integer_part = int(parts[0])
-                        data1 = num_to_word(integer_part, self.keydict[language]).replace(",", "")
-                        decimal_part = str(parts[1])
-                        data2 = ''
-                        for i in decimal_part:
-                            data2 = data2+' '+num_to_word(i, self.keydict[language])
-                        if language == 'hindi':
-                            final_data = f'{data1} दशमलव {data2}'
-                        elif language == 'tamil':
-                            final_data = f'{data1} புள்ளி {data2}'
-                        else:
-                            final_data = f'{data1} point {data2}'
-
-                            
-                        text = re.sub(str(digit), ' '+final_data+' ', text)
-
-            return self.__post_cleaning(text)
-        else:
+            # print(output_text)
+            return output_text
+    #====================================================
+    
 
 
-            words = {
-                '0': 'zero', '1': 'one', '2': 'two', '3': 'three', '4': 'four',
-                '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine'
-            }
 
-
-            # Use regular expression to find and replace decimal points in numbers
-            text = re.sub(r'(?<=\d)\.(?=\d)', ' point ', text)
-
-            # Find all occurrences of numbers with decimal points and convert them to words
-            matches = re.findall(r'point (\d+)', text)
-
-            for match in matches:
-                replacement = ' '.join(words[digit] for digit in match)
-                text = text.replace(f'point {match}', f'point {replacement}', 1)
-
-
-            return self.__post_cleaning(text)
-
+    # def num2text_list(self, text, language):
+    #     # input is supposed to be a list of strings
+    #     if language in self.keydict.keys():
+    #         output_text = []
+    #         for line in text:
+    #             digits = sorted(list(map(int, re.findall(r'\d+', line))),reverse=True)
+    #             if digits:
+    #                 for digit in digits:
+    #                     line = re.sub(str(digit), ' '+num_to_word(digit, self.keydict[language])+' ', line)
+    #             output_text.append(line)
+    #         return self.__post_cleaning_list(output_text)
+    #     else:
+    #         print(f"No num-to-char for the given language {language}.")
+    #         return self.__post_cleaning_list(text)
 
     def normalize(self, text, language):
         return self.__post_cleaning(text)
@@ -792,23 +744,23 @@ class DurAlignTextProcessor:
     def __init__(self):
         # this is a static set of cleaning rules to be applied
         self.cleaning_rules = {
-            " +" : " ",
-           "^" : "$",
+            " +" : "",
+            "^" : "$",
             "$" : ".",
         }
         self.cleaning_rules_English = {
-            " +" : " ",
+            " +" : "",
             "$" : ".",
         }
-    def textProcesor(self, text):
-        for key, replacement in self.cleaning_rules.items():
+    def textProcesorForEnglish(self, text):
+        for key, replacement in self.cleaning_rules_English.items():
             for idx in range(0,len(text)):
                 text[idx] = re.sub(key, replacement, text[idx])
 
         return text
-    
-    def textProcesorForEnglish(self, text):
-        for key, replacement in self.cleaning_rules_English.items():
+
+    def textProcesor(self, text):
+        for key, replacement in self.cleaning_rules.items():
             for idx in range(0,len(text)):
                 text[idx] = re.sub(key, replacement, text[idx])
 
@@ -826,51 +778,45 @@ class DurAlignTextProcessor:
         return output_text
 
 
-
-
-class SharedInit:
+class TTSDurAlignPreprocessor:
     def __init__(self,
                 text_cleaner = TextCleaner(),
                 text_normalizer=TextNormalizer(),
                 phonifier = Phonifier(),
-                text_phrasefier = TextPhrasifier(),
                 post_processor = DurAlignTextProcessor()):
         self.text_cleaner = text_cleaner
         self.text_normalizer = text_normalizer
         self.phonifier = phonifier
-        self.text_phrasefier = text_phrasefier
         self.post_processor = post_processor
 
-
-
-class TTSDurAlignPreprocessor(SharedInit):
-
-    def preprocess(self, text, language, gender, phone_dictionary):
+    def preprocess(self, text, language, gender):
         # text = text.strip()
-        #print(text)
-        text = self.text_normalizer.numberToTextConverter(text, language)
+        print(text)
         text = self.text_cleaner.clean(text)
-        #print("cleaned text", text)
+        print("cleaned text", text)
         # text = self.text_normalizer.insert_space(text)
-        #text = self.text_normalizer.num2text(text, language)
+        text = self.text_normalizer.num2text(text, language)
         # print(text)
         text = self.text_normalizer.normalize(text, language)
         # print(text)
         phrasified_text = TextPhrasifier.phrasify(text)
         #print("phrased",phrasified_text)
-
-        if language not in list(phone_dictionary.keys()):
-            phone_dictionary = self.phonifier.load_lang_dict(language, phone_dictionary)
-
-        #print(phone_dictionary.keys())
-
-        phonified_text = self.phonifier.phonify(phrasified_text, language, gender, phone_dictionary)
+        phonified_text = self.phonifier.phonify(phrasified_text, language, gender)
         #print("phonetext",phonified_text)
         phonified_text = self.post_processor.textProcesor(phonified_text)
-        #print(phonified_text)
+        print(phonified_text)
         return phonified_text, phrasified_text
 
-class TTSDurAlignPreprocessor_VTT(SharedInit):
+class TTSDurAlignPreprocessor_VTT:
+    def __init__(self,
+                text_cleaner = TextCleaner(),
+                text_normalizer=TextNormalizer(),
+                phonifier = Phonifier(),
+                post_processor = DurAlignTextProcessor()):
+        self.text_cleaner = text_cleaner
+        self.text_normalizer = text_normalizer
+        self.phonifier = phonifier
+        self.post_processor = post_processor
 
     def preprocess(self, text, language, gender):
         # text = text.strip()
@@ -884,21 +830,29 @@ class TTSDurAlignPreprocessor_VTT(SharedInit):
         return phonified_text, phrasified_text
 
 
-class CharTextPreprocessor(SharedInit):
+class CharTextPreprocessor:
+    def __init__(self,
+                text_cleaner = TextCleaner(),
+                text_normalizer=TextNormalizer()):
+        self.text_cleaner = text_cleaner
+        self.text_normalizer = text_normalizer
 
-    def preprocess(self, text, language, gender=None, phone_dictionary=None):
+    def preprocess(self, text, language, gender=None):
         text = text.strip()
-        text = self.text_normalizer.numberToTextConverter(text, language)
         text = self.text_cleaner.clean(text)
         # text = self.text_normalizer.insert_space(text)
-        #text = self.text_normalizer.num2text(text, language)
+        text = self.text_normalizer.num2text(text, language)
         text = self.text_normalizer.normalize(text, language)
         phrasified_text = TextPhrasifier.phrasify(text)
         phonified_text = phrasified_text # No phonification for character TTS models
         return phonified_text, phrasified_text
 
-class CharTextPreprocessor_VTT(SharedInit):
-
+class CharTextPreprocessor_VTT:
+    def __init__(self,
+                text_cleaner = TextCleaner(),
+                text_normalizer=TextNormalizer()):
+        self.text_cleaner = text_cleaner
+        self.text_normalizer = text_normalizer
 
     def preprocess(self, text, language, gender=None):
         # text = text.strip()
@@ -911,26 +865,39 @@ class CharTextPreprocessor_VTT(SharedInit):
         return phonified_text, phrasified_text
 
 
-class TTSPreprocessor(SharedInit):
+class TTSPreprocessor:
+    def __init__(self,
+                text_cleaner = TextCleaner(),
+                text_normalizer=TextNormalizer(),
+                phonifier = Phonifier(),
+                text_phrasefier = TextPhrasifier(),
+                post_processor = DurAlignTextProcessor()):
+        self.text_cleaner = text_cleaner
+        self.text_normalizer = text_normalizer
+        self.phonifier = phonifier
+        self.text_phrasefier = text_phrasefier
+        self.post_processor = post_processor
 
-    def preprocess(self, text, language, gender, phone_dictionary):
+    def preprocess(self, text, language, gender):
         text = text.strip()
-        text = self.text_normalizer.numberToTextConverter(text, language)
         text = self.text_cleaner.clean(text)
         # text = self.text_normalizer.insert_space(text)
-        #text = self.text_normalizer.num2text(text, language)
+        text = self.text_normalizer.num2text(text, language)
         text = self.text_normalizer.normalize(text, language)
         phrasified_text = TextPhrasifier.phrasify(text)
-        if language not in list(phone_dictionary.keys()):
-            phone_dictionary = self.phonifier.load_lang_dict(language, phone_dictionary)
-        phonified_text = self.phonifier.phonify(phrasified_text, language, gender, phone_dictionary)
-        #print(phonified_text)
-        phonified_text = self.post_processor.textProcesorForEnglish(phonified_text)
-        #print(phonified_text)
+        phonified_text = self.phonifier.phonify(phrasified_text, language, gender)
         return phonified_text, phrasified_text
 
-class TTSPreprocessor_VTT(SharedInit):
-
+class TTSPreprocessor_VTT:
+    def __init__(self,
+                text_cleaner = TextCleaner(),
+                text_normalizer=TextNormalizer(),
+                phonifier = Phonifier(),
+                text_phrasefier = TextPhrasifier_List()):
+        self.text_cleaner = text_cleaner
+        self.text_normalizer = text_normalizer
+        self.phonifier = phonifier
+        self.text_phrasefier = text_phrasefier
 
     def preprocess(self, text, language, gender):
         # print(f"Original text: {text}")
