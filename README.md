@@ -40,7 +40,7 @@ The model for each language includes the following files:
 
 ## Installation
 
-1. Install [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/) first. Create a conda environment using the provided `environment.yml` file:
+1. Install [Miniconda]([https://docs.conda.io/projects/miniconda/en/latest/](https://www.anaconda.com/docs/getting-started/miniconda/install#linux-2)) first. Create a conda environment using the provided `environment.yml` file:
 
 ```shell
 conda env create -f environment.yml
