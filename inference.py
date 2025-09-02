@@ -136,7 +136,7 @@ if __name__ == "__main__":
             #print("sample_text -- ", sample_text)
             
             # Preprocess the text and obtain a list of phrases
-            preprocessed_text, phrases = preprocessor.preprocess(sample_text, args.language, args.gender, phone_dictionary)
+            preprocessed_text, phrases = preprocessor.preprocess(sample_text, args.language, args.gender)
             preprocessed_text = " ".join(preprocessed_text)
 
             # Generate audio from the preprocessed text using a text-to-speech synthesis function
