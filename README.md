@@ -69,9 +69,10 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 
 **Use "language"_latest in --language to use latest models.**
 
+---
 
 ```
-# New Update: Alpha & Silence Tags
+## New Update: Alpha & Silence Tags
 
 We now support fine-grained control of **speech rate** and **pauses** directly from the input text.
 
@@ -109,7 +110,7 @@ This is the first sentence. <sil=500ms> This comes after a short pause. <sil=2s>
 Both controls can be mixed naturally:
 
 ```text
-આ ગીત તો मेरा फेवरेट <alpha=0.5> છે, <sil=1s>volume વધારે કર
+આ ગીત તો मेरा फेवरेट <alpha=0.5> છે, <sil=1s> volume વધારે કર.
 ```
 
 This example will:
@@ -119,11 +120,6 @@ This example will:
 * Resume at default speed afterwards
 
 ---
-
-```
-
-Do you also want me to add a **Usage Examples** section (CLI + API) right after this in the same Markdown style? That way your README shows both the feature description and how to run it.
-```
 
 
 
