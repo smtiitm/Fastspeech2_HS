@@ -71,7 +71,6 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 
 ---
 
-```
 ## New Update: Alpha & Silence Tags
 
 We now support fine-grained control of **speech rate** and **pauses** directly from the input text.
