@@ -70,6 +70,63 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 **Use "language"_latest in --language to use latest models.**
 
 
+```
+# New Update: Alpha & Silence Tags
+
+We now support fine-grained control of **speech rate** and **pauses** directly from the input text.
+
+---
+
+## 1. Speed Control with `<alpha>`
+
+You can locally adjust the speech rate inside your text:
+
+```text
+This is normal speed. <alpha=0.8> This part will be slower. <alpha=1.2> And this part will be faster.
+````
+
+* `alpha=1.0` → default (normal speed)
+* `<1.0` → slower speech
+* `>1.0` → faster speech
+
+---
+
+## 2. Silence Control with `<sil>`
+
+You can insert pauses of arbitrary duration:
+
+```text
+This is the first sentence. <sil=500ms> This comes after a short pause. <sil=2s> Now a longer pause before continuing.
+```
+
+* `<sil=500ms>` → half a second pause
+* `<sil=2s>` → two second pause
+
+---
+
+## 3. Combining Alpha and Silence
+
+Both controls can be mixed naturally:
+
+```text
+આ ગીત તો मेरा फेवरेट <alpha=0.5> છે, <sil=1s>volume વધારે કર
+```
+
+This example will:
+
+* Slow down at `<alpha=0.5>`
+* Insert 1 second of silence
+* Resume at default speed afterwards
+
+---
+
+```
+
+Do you also want me to add a **Usage Examples** section (CLI + API) right after this in the same Markdown style? That way your README shows both the feature description and how to run it.
+```
+
+
+
 ### Citation
 If you use this Fastspeech2 Model in your research or work, please consider citing:
 
