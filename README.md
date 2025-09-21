@@ -73,7 +73,9 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 
 ## New Update: Alpha & Silence Tags
 
-We now support fine-grained control of **speech rate** and **pauses** directly from the input text.
+We now support fine-grained control of **speech rate** and **pauses** directly from the input text. 
+
+Note: The code uses regex, make sure there is no space inside the tag.
 
 ---
 
@@ -82,12 +84,12 @@ We now support fine-grained control of **speech rate** and **pauses** directly f
 You can locally adjust the speech rate inside your text:
 
 ```text
-This is normal speed. <alpha=0.8> This part will be slower. <alpha=1.2> And this part will be faster.
+This is normal speed. <alpha=1.2> This part will be slower. <alpha=0.8> And this part will be faster.
 ````
 
 * `alpha=1.0` → default (normal speed)
-* `<1.0` → slower speech
-* `>1.0` → faster speech
+* `<1.0` → Faster speech
+* `>1.0` → Slower speech
 
 ---
 
@@ -109,13 +111,13 @@ This is the first sentence. <sil=500ms> This comes after a short pause. <sil=2s>
 Both controls can be mixed naturally:
 
 ```text
-આ ગીત તો मेरा फेवरेट <alpha=0.5> છે, <sil=1s> volume વધારે કર.
+<alpha=0.8> તું kaam કર, પછી <sil=50ms> क्रिकेट <alpha=1> ખેલેંગે.
 ```
 
 This example will:
 
-* Slow down at `<alpha=0.5>`
-* Insert 1 second of silence
+* Become fast at `<alpha=0.8>`
+* Insert 50ms of silence
 * Resume at default speed afterwards
 
 ---
