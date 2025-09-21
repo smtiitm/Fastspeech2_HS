@@ -75,6 +75,8 @@ The file will be stored as `male_hindi_output.wav` and will be inside current wo
 
 We now support fine-grained control of **speech rate** and **pauses** directly from the input text. 
 
+USE the `inference_w_sil_alpha.py` file.
+
 Note: The code uses regex, make sure there is no space inside the tag.
 
 ---
