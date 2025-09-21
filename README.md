@@ -122,6 +122,13 @@ This example will:
 * Insert 50ms of silence
 * Resume at default speed afterwards
 
+
+**Example:**
+
+```
+python inference_w_sil_alpha.py --sample_text "श्रीलंका और पाकिस्तान में <alpha=0.8> खेला जा रहा एशिया कप अब तक का सबसे विवादित टूर्नामेंट <sil=50ms> होता जा रहा है।" --language hindi_latest --gender male --alpha 1 --output_file male_hindi_output.wav
+```
+
 ---
 
 
