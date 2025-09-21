@@ -18,7 +18,7 @@ import re
 
 from text_preprocess_for_inference import TTSDurAlignPreprocessor, CharTextPreprocessor, TTSPreprocessor
 
-SAMPLING_RATE = 48000
+SAMPLING_RATE = 22050
 
 def load_hifigan_vocoder(language, gender, device):
     # Load HiFi-GAN vocoder configuration file and generator model for the specified language and gender
