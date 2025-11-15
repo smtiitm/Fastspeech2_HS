@@ -72,7 +72,8 @@ def load_fastspeech2_model(language, gender, device):
 
 def text_synthesis(language, gender, sample_text, vocoder, MAX_WAV_VALUE, device, alpha):
     # Perform Text-to-Speech synthesis
-    with torch.no_grad():
+    # with torch.no_grad():
+    with torch.inference_mode():
         # Load the FastSpeech2 model for the specified language and gender
         
         model = load_fastspeech2_model(language, gender, device)
