@@ -12,17 +12,19 @@ num_workers: 1
 num_att_plot: 3
 dist_backend: nccl
 dist_init_method: env://
-dist_world_size: 2
-dist_rank: 0
+dist_world_size: null
+dist_rank: null
 local_rank: 0
-dist_master_addr: localhost
-dist_master_port: 38575
+dist_master_addr: null
+dist_master_port: null
 dist_launcher: null
-multiprocessing_distributed: true
+multiprocessing_distributed: false
 unused_parameters: false
 sharded_ddp: false
 use_deepspeed: false
 deepspeed_config: null
+gradient_as_bucket_view: true
+ddp_comm_hook: null
 cudnn_enabled: true
 cudnn_benchmark: false
 cudnn_deterministic: true
@@ -79,6 +81,7 @@ batch_size: 20
 valid_batch_size: null
 batch_bins: 3000000
 valid_batch_bins: null
+category_sample_size: 10
 train_shape_file:
 - exp/tts_stats_raw_char_None/train/text_shape.char
 - exp/tts_stats_raw_char_None/train/speech_shape
@@ -237,7 +240,6 @@ bpemodel: null
 non_linguistic_symbols: null
 cleaner: null
 g2p: null
-text_embedding: null
 feats_extract: fbank
 feats_extract_conf:
     n_fft: 8192
@@ -286,7 +288,7 @@ tts_conf:
     pitch_predictor_dropout: 0.5
     pitch_embed_kernel_size: 1
     pitch_embed_dropout: 0.0
-    stop_gradient_from_pitch_predictor: false
+    stop_gradient_from_pitch_predictor: true
     energy_predictor_layers: 2
     energy_predictor_chans: 256
     energy_predictor_kernel_size: 3
@@ -299,8 +301,8 @@ pitch_extract_conf:
     fs: 48000
     n_fft: 8192
     hop_length: 1024
-    f0max: 350
-    f0min: 40
+    f0max: 400
+    f0min: 80
     reduction_factor: 1
 pitch_normalize: global_mvn
 pitch_normalize_conf:
@@ -318,5 +320,5 @@ energy_normalize_conf:
 required:
 - output_dir
 - token_list
-version: '202402'
-distributed: true
+version: '202503'
+distributed: false

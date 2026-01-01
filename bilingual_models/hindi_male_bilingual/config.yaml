@@ -16,7 +16,7 @@ dist_world_size: 2
 dist_rank: 0
 local_rank: 0
 dist_master_addr: localhost
-dist_master_port: 38575
+dist_master_port: 45271
 dist_launcher: null
 multiprocessing_distributed: true
 unused_parameters: false
@@ -286,7 +286,7 @@ tts_conf:
     pitch_predictor_dropout: 0.5
     pitch_embed_kernel_size: 1
     pitch_embed_dropout: 0.0
-    stop_gradient_from_pitch_predictor: false
+    stop_gradient_from_pitch_predictor: true
     energy_predictor_layers: 2
     energy_predictor_chans: 256
     energy_predictor_kernel_size: 3
