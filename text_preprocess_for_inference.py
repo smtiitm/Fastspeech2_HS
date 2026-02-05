@@ -91,7 +91,20 @@ class Phonifier:
         if dict_location is None:
             dict_location = "phone_dict"
         self.dict_location = dict_location
-
+        self.devanagari_langs = {
+            "bodo",
+            "hindi",
+            "kashmiri",
+            "marathi",
+            "nepali",
+            "santali",
+            "rajasthani",
+            "sindhi",
+            "dogri",
+            "sanskrit",
+            "maithili",
+            "konkani",
+        }
         self.phone_dictionary = {}
         # load dictionary for all the available languages
         for dict_file in os.listdir(dict_location):
@@ -301,7 +314,37 @@ class Phonifier:
         if u'\u0000' <= maxchar <= u'\u007f':
             return True
         return False
+    
+    def __normalize_phones(self, phone_str):
+        """
+        Apply phone-level replacements after phonification
+        """
+        replace_map = {
+            "P": "f",
+            "ष": "श",
+            "ग़": "ग",
+            "T": "ढ",
+            "ऱ": "r",
+            "jञ": "gy",
+            "क़":"क",
+            "ख़":"ख",
+            "ड़":"ड",
+            "फ़":"फ",
+            "य़":"य",
+            "ऱ":"r",
+            "Y":"",
+            "G":"g",
+            "क":"k",
+            "ay":"E",
+            "kH":"ख",
+            "ऩ":"n"
+        }
 
+        for src, tgt in replace_map.items():
+            phone_str = phone_str.replace(src, tgt)
+
+        return phone_str
+    
     def __phonify(self, text, language, gender):
         # text is expected to be a list of strings
         words = set((" ".join(text)).split(" "))
@@ -399,7 +442,11 @@ class Phonifier:
                     # if a word could not be parsed, skip it
                     phrase_phonified.append(str(self.phone_dictionary[language][word]))
             # text_phonified.append(self.__post_phonify(" ".join(phrase_phonified),language, gender))
-            text_phonified.append(" ".join(phrase_phonified))
+            
+            phone_line = " ".join(phrase_phonified)
+            if language in self.devanagari_langs:
+                phone_line = self.__normalize_phones(phone_line)
+            text_phonified.append(phone_line)
         return text_phonified
 
     def __merge_lists(self, lists):
@@ -744,9 +791,9 @@ class DurAlignTextProcessor:
     def __init__(self):
         # this is a static set of cleaning rules to be applied
         self.cleaning_rules = {
-            " +" : "",
-            "^" : "$",
-            "$" : ".",
+            r"\s{2,}": " ",   # collapse multiple spaces into one
+            r"^": "$",
+            r"$": ".",
         }
         self.cleaning_rules_English = {
             " +" : "",
