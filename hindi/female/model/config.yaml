@@ -258,6 +258,7 @@ tts_conf:
     energy_embed_kernel_size: 1
     energy_embed_dropout: 0.0
     stop_gradient_from_energy_predictor: false
+    apply_ff_mask: true
 pitch_extract: dio
 pitch_extract_conf:
     fs: 22050
