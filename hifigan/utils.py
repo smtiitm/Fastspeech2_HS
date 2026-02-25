@@ -54,6 +54,7 @@ def scan_checkpoint(cp_dir, prefix):
     return sorted(cp_list)[-1]
 
 
+@torch.compiler.disable
 def apply_mask(op, x, valid_lengths):
     if op._get_name() == 'Conv1d':
         kernel_size = op.kernel_size[0]
